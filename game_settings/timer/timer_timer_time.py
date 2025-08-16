@@ -4,14 +4,15 @@ import tkinter as tk
 from tkinter import messagebox
 from .timer_timer_help import HelpMe
 from ..properties import Properties
+from ..displayer.display_updater import Updater
 
 class TimerTimerTime:
     """This name is embarassing"""
-    def __init__(self, master: tk.Widget, _) -> None:
+    def __init__(self, master: tk.Widget, _, permit) -> None:
 
         self.root = master
+        self.permit = permit
         self.help: HelpMe= HelpMe(self.root, self)
-        self.prp = Properties()
 
         # >>> The Timer-Timer—Sub-Menu
         # The "Timer's Time" title
@@ -28,7 +29,7 @@ class TimerTimerTime:
         self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.root,
                                                                text= " Custom time",
                                                                font= ("Arial", 12),
-                                                          variable= self.prp.timer_chosen_time_raw,
+                                                variable= Properties().timer_chosen_time_raw,
                                                                value= (-1),
                                                                command= self.summon_entrybox,
                                                                bg= "gray20",
@@ -52,7 +53,7 @@ class TimerTimerTime:
         try:
             new_input = abs(int(user_input))
             self.timer_custom_entrybox.config(state= "readonly")
-            self.prp.timer_chosen_time = new_input
+            Properties().timer_chosen_time = new_input
 
         except ValueError:
             print("Fuck, ValueError on timer_timer_time line 58")
@@ -65,7 +66,7 @@ class TimerTimerTime:
         return tk.Radiobutton(self.root,
                               text= text,
                               font= ("Arial", 12),
-                              variable= self.prp.timer_chosen_time_raw,
+                              variable= Properties().timer_chosen_time_raw,
                               value= value,
                               bg= "gray20",
                               fg= "white",
@@ -88,6 +89,7 @@ class TimerTimerTime:
 
     def refresh_custom(self):
         """Delete the text"""
+        Updater(self.root, None, Properties, self.permit)
         self.help.button_placement()
         self.timer_custom_entrybox.place_forget()
         self.timer_custom_entrybox.config(state= tk.NORMAL)

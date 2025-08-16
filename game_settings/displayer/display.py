@@ -11,14 +11,14 @@ class Display:
 
         self.root = master
         self.prp = Properties()
-        self.upd = Updater(self.root, self, self.prp)
+        self.upd = Updater(self.root, self, self.prp, self)
 
         # GUI components
         gui_components: list[tk.Widget] = []
 
         # Difficulty display
-        difficulty_display = tk.Label(self.root, text= f"Difficulty: {self.prp.difficulty}")
-        gui_components.append(difficulty_display)
+        self.difficulty_display = tk.Label(self.root, text= f"Difficulty: {self.prp.difficulty}")
+        gui_components.append(self.difficulty_display)
 
         # Hint Level display
         hint_level_translator: dict[int, str] = {
@@ -29,22 +29,34 @@ class Display:
             4: "Premium Information"
             }
 
-        hint_level_display = tk.Label(self.root, text= f"Hint Level: {hint_level_translator[self.prp.hints_chosen_level]}")
-        gui_components.append(hint_level_display)
+        self.hint_level_display = tk.Label(self.root,
+                                      text= "Hint Level: "
+                                      f"{hint_level_translator[self.prp.hints_chosen_level]}")
+        gui_components.append(self.hint_level_display)
 
-        # Timer Style display        
-        timer_style_display = tk.Label(self.root, text= f"Timer Style: {self.prp.timer_style.capitalize()}")
-        gui_components.append(timer_style_display)
+        # Timer Style display
+        self.timer_style_display = tk.Label(self.root,
+                                       text= f"Timer Style: {self.prp.timer_style.capitalize()}")
+        gui_components.append(self.timer_style_display)
 
         # Chosen Time display
-        chosen_time_display = tk.Label(self.root, text= f"Difficulty: {self.prp.timer_chosen_time} seconds")
+        self.chosen_time_display = tk.Label(self.root, # pylint: disable = unused-variable
+                                       text= f"Difficulty: {self.prp.timer_chosen_time} seconds")
 
         component_coords: list[tuple[int, int]] = [
             (430, 300), # Coordinates of Difficulty display
             (430, 320), # Coordinates of Hint level display
-            (430, 340) # Coordinates of Timer Style display
+            (430, 340)  # Coordinates of Timer Style display
             ]
 
-        for component, coordinate in zip(gui_components, component_coords):
+        self.place_widgets(gui_components, component_coords)
+
+    def place_widgets(self, components, coords):
+        """Place the widgets"""
+        for component, coordinate in zip(components, coords):
             comp_x, comp_y = coordinate
             component.place(x= comp_x, y= comp_y)
+
+    def give_permit(self):
+        """Give permission to use display_updater"""
+        return self

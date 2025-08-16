@@ -10,13 +10,14 @@ import ctypes
 from .setting_difficulty import Difficulty
 from .setting_hints import Hints
 from .timer import Timer
+from .properties import Properties
 from .displayer import Showcase
 from .displayer.display_updater import Updater
 
 class GameSettings:
     """Set the basic values"""
     def __init__(self):
-       pass
+        pass
 
     def set_up_gui(self):
         """Set up the GUI for the settings menu"""
@@ -65,16 +66,17 @@ class GameSettings:
             self.title_button.place(x= 450, y= 10)
 
         # Load the custom modules' objects
-        self.load_modules([Difficulty, Hints, Timer, Showcase])
+        self.load_modules([Difficulty, Hints, Timer])
 
-        Updater.update_general()
+        Updater(self.root, self, Properties).update_general()
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
     def load_modules(self, modules: list):
         """Load each module one by one"""
+        swc = Showcase(self.root, self)
         for module in modules:
-            module(self.root, self)
+            module(self.root, self, swc.give_permit())
 
     def add_hover(self,
                   widget,

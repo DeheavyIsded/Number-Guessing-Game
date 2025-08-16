@@ -47,7 +47,7 @@ class MainMenu:
                                      font= ("Comic Sans MS", 20, "bold"),
                                      background= "#a76311",
                                      foreground= "black")
-        Gui(self.root, (self, self.parent))
+        Gui(self.root, self)
 
     def start(self):
         """Start the game"""

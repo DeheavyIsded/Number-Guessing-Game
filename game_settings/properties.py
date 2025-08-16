@@ -39,18 +39,22 @@ class Properties:
     # >>> Getters
     @property
     def difficulty(self):
+        """Getter for Difficulty"""
         return self.difficulty_raw.get()
 
     @property
     def timer_style(self):
+        """Getter for Timer Style"""
         return self.timer_style_raw.get()
 
     @property
     def timer_chosen_time(self):
+        """Getter for Chosen Time"""
         return self.timer_chosen_time_raw.get()
 
     @property
     def hints_chosen_level(self):
+        """Getter for Hint Level"""
         return self.hints_chosen_level_raw.get()
 
     # >>> Setters

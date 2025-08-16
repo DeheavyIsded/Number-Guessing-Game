@@ -7,12 +7,12 @@ from .displayer.display_updater import Updater
 
 class Hints:
     """Hints menu for the settings window"""
-    def __init__(self, master, parent):
+    def __init__(self, master, parent, permit):
 
         # >>> Hints Choice Menu
         self.root = master
         self.parent = parent
-        self.prp = Properties()
+        self.permit = permit
 
         # The "Hints" title
         hints_title = tk.Label(self.root,
@@ -23,22 +23,19 @@ class Hints:
         hints_title.place(x= 275, y= 75)
 
         # The "Hints" Options
-        y_coords: tuple[int] = (150, 175, 200, 225)
-        self.y_cycle = cycle(y_coords)
-
         self.hints_yes = tk.BooleanVar(value= False)
 
         self.level_1 = self.create_radio_button("Greater of Lesser", 1)
         self.level_2 = self.create_radio_button("Temperature", 2)
-        self.level_3 = self.create_radio_button("Information", 3)
+        self.level_3 = self.create_radio_button("Freemium Information", 3)
         self.level_4 = self.create_radio_button("Premium Information", 4)
 
-        self.description: tk.Label = tk.Label(self.root,
+        description: tk.Label = tk.Label(self.root,
                                text= "",
                                bg= "gray20",
                                fg= "yellow",
                                font= ("Arial", 12, "italic"))
-        self.description.place(x= 425, y= 170)
+        description.place(x= 425, y= 170)
 
         # The "Hints" checkbox
         hints_toggle = tk.Checkbutton(self.root,
@@ -60,8 +57,9 @@ class Hints:
 
         if not self.hints_yes.get():
             self.parent.hints_chosen_level = "0"
+
         else:
-            self.parent.hints_chosen_level = self.prp.hints_chosen_level
+            self.parent.hints_chosen_level = Properties().hints_chosen_level
 
         return tk.Radiobutton(self.root,
                               text= text,
@@ -70,14 +68,14 @@ class Hints:
                               activebackground= "gray20",
                               activeforeground= "white",
                               selectcolor= "black",
-                              variable= self.prp.hints_chosen_level_raw,
+                              variable= Properties().hints_chosen_level_raw,
                               value= value,
                               command= lambda: self.show_descriptions(value))
-    Updater.update_hint_level()
 
-    def show_descriptions(self, value: int | None = 0) -> None:
+    def show_descriptions(self, value: int | None = 0, description: tk.Label= None) -> None:
         """Show the descripton of the chosen option"""        
 
+        Updater(self.root, self.parent, Properties, self.permit).update_hint_level()
         hint_descriptions: dict[int, str]= {
             0: "",
             1: "Shows if your incorrect guess is bigger or smaller",
@@ -85,10 +83,12 @@ class Hints:
                "\n ... without numbers",
             3: "Gives helpful information about the number",
             4: "Gives less helpful information about the number",}
+
         if not self.hints_yes.get():
-            self.description.config(text= hint_descriptions[0])
+            description.config(text= hint_descriptions[0])
             return
-        self.description.config(text= hint_descriptions[value])
+
+        description.config(text= hint_descriptions[value])
 
     def check_radio_buttons(self) -> None:
         """Check the visiblity of Radio Buttons"""
@@ -100,9 +100,10 @@ class Hints:
             self.show_descriptions()
             return
 
-        coords = self.y_cycle
+        coords = cycle((150, 175, 200, 225))
+
         self.level_1.place(x= 300, y= next(coords))
         self.level_2.place(x= 300, y= next(coords))
         self.level_3.place(x= 300, y= next(coords))
         self.level_4.place(x= 300, y= next(coords))
-        self.show_descriptions(self.prp.hints_chosen_level_raw.get())
+        self.show_descriptions(Properties().hints_chosen_level_raw.get())

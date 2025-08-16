@@ -3,16 +3,16 @@
 import tkinter as tk
 from .timer_timer_time import TimerTimerTime
 from ..properties import Properties
+from ..displayer.display_updater import Updater
 
 class TimerType:
     """Timer choice menu, Timer | Chronometer"""
-    def __init__(self, master: tk.Widget, parent):
+    def __init__(self, master: tk.Widget, _, permit):
 
         self.root = master
-        self.parent = parent
-        self.prp = Properties()
+        self.permit = permit
         self.timer_enabled: tk.BooleanVar= tk.BooleanVar(value= False)
-        self.ttt: TimerTimerTime= TimerTimerTime(self.root, self)
+        self.ttt: TimerTimerTime= TimerTimerTime(self.root, self, self.permit)
 
         # Checkbox for the timer
         timer_checkbox = tk.Checkbutton(self.root,
@@ -44,9 +44,9 @@ class TimerType:
                                              selectcolor="black",
                                              activebackground="gray20",
                                              activeforeground="white",
-                                             variable= self.prp.timer_style_raw,
+                                             variable= Properties().timer_style_raw,
                                              value="chronometer",
-                    command= lambda: self.ttt.check_appearance_status(self.prp.timer_style))
+                    command= lambda: self.ttt.check_appearance_status(Properties().timer_style))
 
         self.timer_type_timer = tk.Radiobutton(self.root,
                                                text="Timer",
@@ -56,12 +56,13 @@ class TimerType:
                                                selectcolor="black",
                                                activebackground="gray20",
                                                activeforeground="white",
-                                               variable= self.prp.timer_style_raw,
+                                               variable= Properties().timer_style_raw,
                                                value="timer",
-                  command= lambda: self.ttt.check_appearance_status(self.prp.timer_style))
+                  command= lambda: self.ttt.check_appearance_status(Properties().timer_style))
 
     def check_timer_type_menu(self) -> None:
         """Checks the appearance status of the timer-type menu"""
+        Updater(self.root, self, Properties, self.permit).update_timer_style()
         menu_items: list[tk.Widget] = [self.timer_type_title,
                                        self.timer_type_chronometer,
                                        self.timer_type_timer]
@@ -81,4 +82,4 @@ class TimerType:
             item_x, item_y = item_coords[menu_item]
             menu_item.place(x= item_x, y= item_y)
 
-        self.prp.timer_style = "chronometer"
+        Properties().timer_style = "chronometer"

@@ -8,19 +8,19 @@ import numpy as np
 class Gui:
     """The class of all main menu GUI components"""
 
-    def __init__(self, master, parents: tuple):
+    def __init__(self, master, parent):
 
         self.root = master
-        self.parent, self.grandparent = parents
+        self.parent = parent
 
         # Main menu text
         self.main_menu_text = tk.Label(self.root,
                                        text= "Number Guessing Game",
-                                       font= self.grandparent.main_menu_font,
-                                       background= self.grandparent.root_background,
+                                       font= self.parent.parent.main_menu_font,
+                                       background= self.parent.parent.root_background,
                                        foreground= "#0000bb")
         self.add_hover(self.main_menu_text,
-                       background= ("#224466", self.grandparent.root_background),
+                       background= ("#224466", self.parent.parent.root_background),
                        foreground= ("#aaaaff", "#0000bb"),
                        text= (self.parent.hover_texts, "Number Guessing Game"))
         self.main_menu_text.place(x=100, y= 50, height= 100)
