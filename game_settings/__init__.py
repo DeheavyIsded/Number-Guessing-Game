@@ -11,6 +11,7 @@ from .setting_difficulty import Difficulty
 from .setting_hints import Hints
 from .timer import Timer
 from .displayer import Showcase
+from .displayer.display_updater import Updater
 
 class GameSettings:
     """Set the basic values"""
@@ -66,6 +67,7 @@ class GameSettings:
         # Load the custom modules' objects
         self.load_modules([Difficulty, Hints, Timer, Showcase])
 
+        Updater.update_general()
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 

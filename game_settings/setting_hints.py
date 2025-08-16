@@ -3,6 +3,7 @@
 import tkinter as tk
 from itertools import cycle
 from .properties import Properties
+from .displayer.display_updater import Updater
 
 class Hints:
     """Hints menu for the settings window"""
@@ -72,6 +73,7 @@ class Hints:
                               variable= self.prp.hints_chosen_level_raw,
                               value= value,
                               command= lambda: self.show_descriptions(value))
+    Updater.update_hint_level()
 
     def show_descriptions(self, value: int | None = 0) -> None:
         """Show the descripton of the chosen option"""        

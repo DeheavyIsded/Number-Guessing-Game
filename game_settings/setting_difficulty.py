@@ -2,6 +2,7 @@
 
 import tkinter as tk
 from .properties import Properties as prp
+from .displayer.display_updater import Updater
 
 class Difficulty:
     """The Difficulty menu for the settings menu"""
@@ -40,7 +41,8 @@ class Difficulty:
                 fg= foreground,
                 activebackground= self.decrease_color_hue(background, 50),
                 selectcolor= self.decrease_color_hue(background, 50),
-                indicatoron= True)
+                indicatoron= True,
+                command= Updater.update_difficulty)
             option_button.place(x= 10, y= y_coord)
 
     def decrease_color_hue(self, color: str, amount: str) -> str:
@@ -57,6 +59,6 @@ class Difficulty:
 
         return f"#{new_red:02x}{new_green:02x}{new_blue:02x}"
 
-    def shut_up_code_analyzer(self):
+    def shut_up_code_analyzer(self) -> int:
         """Placeholder for Refactor R0903"""
-        return None
+        return int
