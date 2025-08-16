@@ -68,15 +68,15 @@ class GameSettings:
         # Load the custom modules' objects
         self.load_modules([Difficulty, Hints, Timer])
 
-        Updater(self.root, self, Properties).update_general()
+        Updater(self.root, self, Properties, self.swc.give_permit()).update_general()
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
     def load_modules(self, modules: list):
         """Load each module one by one"""
-        swc = Showcase(self.root, self)
+        self.swc = Showcase(self.root, self)
         for module in modules:
-            module(self.root, self, swc.give_permit())
+            module(self.root, self, self.swc.give_permit())
 
     def add_hover(self,
                   widget,

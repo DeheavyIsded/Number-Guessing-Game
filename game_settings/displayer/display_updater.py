@@ -4,6 +4,7 @@ class Updater:
     """Updaters for the displayer"""
     def __init__(self, _=None, __=None, prp=None, screen=None):
         self.screen = screen
+        self.prp = prp
         self.data: dict= {
              "difficulty": prp.difficulty,
             "hints level": prp.hints_chosen_level,

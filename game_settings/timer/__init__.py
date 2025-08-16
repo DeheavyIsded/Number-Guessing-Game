@@ -18,4 +18,4 @@ class Timer:
                                bg= "gray20",
                                fg= "white")
         timer_title.place(x= 10, y= 275)
-        TimerType(self.root, self, screen= self.permit)
+        TimerType(self.root, self, permit= self.permit)

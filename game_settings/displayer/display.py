@@ -21,7 +21,7 @@ class Display:
         gui_components.append(self.difficulty_display)
 
         # Hint Level display
-        hint_level_translator: dict[int, str] = {
+        self.hint_level_translator: dict[int, str] = {
             0: "No hints",
             1: "Greater or Lesser",
             2: "Temperature (Cold & Hot)",
@@ -31,7 +31,7 @@ class Display:
 
         self.hint_level_display = tk.Label(self.root,
                                       text= "Hint Level: "
-                                      f"{hint_level_translator[self.prp.hints_chosen_level]}")
+                                      f"{self.hint_level_translator[self.prp.hints_chosen_level]}")
         gui_components.append(self.hint_level_display)
 
         # Timer Style display
