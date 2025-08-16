@@ -11,6 +11,7 @@ class Difficulty:
         # >>> Difficulty choosing menu
         self.root = master
         self.permit = permit
+        self.prp = Properties()
 
         # The "Difficulty" title
         difficulty_title = tk.Label(self.root,
@@ -34,7 +35,7 @@ class Difficulty:
             option_button = tk.Radiobutton(
                 self.root,
                 text= option,
-                variable= Properties.difficulty,
+                variable= self.prp.difficulty_raw,
                 value= option,
                 font=("TF2 Build", 16),
                 bg= background,
@@ -42,7 +43,7 @@ class Difficulty:
                 activebackground= self.decrease_color_hue(background, 50),
                 selectcolor= self.decrease_color_hue(background, 50),
                 indicatoron= True,
-                command= Updater(self.root, None, Properties, self.permit).update_difficulty)
+                command= Updater(self.root, None, self.prp, self.permit).update_difficulty)
             option_button.place(x= 10, y= y_coord)
 
     def decrease_color_hue(self, color: str, amount: str) -> str:
@@ -59,6 +60,6 @@ class Difficulty:
 
         return f"#{new_red:02x}{new_green:02x}{new_blue:02x}"
 
-    def shut_up_code_analyzer(self) -> int:
+    def shut_up_code_analyzer(self) -> type:
         """Placeholder for Refactor R0903"""
         return int

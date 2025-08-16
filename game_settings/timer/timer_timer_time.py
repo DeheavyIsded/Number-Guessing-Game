@@ -89,7 +89,7 @@ class TimerTimerTime:
 
     def refresh_custom(self):
         """Delete the text"""
-        Updater(self.root, None, Properties, self.permit)
+        Updater(self.root, None, Properties(), self.permit)
         self.help.button_placement()
         self.timer_custom_entrybox.place_forget()
         self.timer_custom_entrybox.config(state= tk.NORMAL)

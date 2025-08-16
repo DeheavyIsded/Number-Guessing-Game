@@ -15,9 +15,10 @@ class Display:
 
         # GUI components
         gui_components: list[tk.Widget] = []
+        gui_font: tuple[str, int]= ("TF2 Build", 9)
 
         # Difficulty display
-        self.difficulty_display = tk.Label(self.root, text= f"Difficulty: {self.prp.difficulty}")
+        self.difficulty_display = tk.Label(self.root, font= gui_font)
         gui_components.append(self.difficulty_display)
 
         # Hint Level display
@@ -30,23 +31,24 @@ class Display:
             }
 
         self.hint_level_display = tk.Label(self.root,
-                                      text= "Hint Level: "
-                                      f"{self.hint_level_translator[self.prp.hints_chosen_level]}")
+                                      font= gui_font)
         gui_components.append(self.hint_level_display)
 
         # Timer Style display
+        timer_style = self.prp.timer_style.capitalize() if self.prp.timer_style.capitalize() else\
+            "Not Chosen"
         self.timer_style_display = tk.Label(self.root,
-                                       text= f"Timer Style: {self.prp.timer_style.capitalize()}")
+                                       font= gui_font)
         gui_components.append(self.timer_style_display)
 
         # Chosen Time display
         self.chosen_time_display = tk.Label(self.root, # pylint: disable = unused-variable
-                                       text= f"Difficulty: {self.prp.timer_chosen_time} seconds")
+                                       font= gui_font)
 
         component_coords: list[tuple[int, int]] = [
-            (430, 300), # Coordinates of Difficulty display
-            (430, 320), # Coordinates of Hint level display
-            (430, 340)  # Coordinates of Timer Style display
+            (430, 320), # Coordinates of Difficulty display
+            (430, 350), # Coordinates of Hint level display
+            (430, 380)  # Coordinates of Timer Style display
             ]
 
         self.place_widgets(gui_components, component_coords)

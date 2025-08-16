@@ -12,7 +12,7 @@ Held properties:
     *hints_chosen_level: Chosen level of given hints
 """
 
-import tkinter
+import tkinter 
 
 class Properties:
     """

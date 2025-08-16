@@ -68,8 +68,8 @@ class GameSettings:
         # Load the custom modules' objects
         self.load_modules([Difficulty, Hints, Timer])
 
-        Updater(self.root, self, Properties, self.swc.give_permit()).update_general()
-        self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
+        Updater(self.root, self, Properties(), self.swc.give_permit()).update_general()
+        # XXX self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
     def load_modules(self, modules: list):

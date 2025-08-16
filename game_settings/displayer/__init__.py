@@ -18,4 +18,5 @@ class Showcase: # pylint: disable= too-few-public-methods
         self.display = Display(self.root)
 
     def give_permit(self):
+        """Give display's self to other modules"""
         return self.display.give_permit()

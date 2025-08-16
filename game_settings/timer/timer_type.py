@@ -62,7 +62,7 @@ class TimerType:
 
     def check_timer_type_menu(self) -> None:
         """Checks the appearance status of the timer-type menu"""
-        Updater(self.root, self, Properties, self.permit).update_timer_style()
+        Updater(self.root, self, Properties(), self.permit).update_timer_style()
         menu_items: list[tk.Widget] = [self.timer_type_title,
                                        self.timer_type_chronometer,
                                        self.timer_type_timer]
