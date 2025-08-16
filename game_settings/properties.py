@@ -31,41 +31,41 @@ class Properties:
     """
     def __init__(self) -> None:
 
-        self.__difficulty: tkinter.StringVar
-        self.__timer_style: tkinter.StringVar
-        self.__timer_chosen_time: tkinter.IntVar
-        self.__hints_chosen_level: tkinter
+        self.difficulty_raw: tkinter.StringVar = tkinter.StringVar(value= "Medium")
+        self.timer_style_raw: tkinter.StringVar = tkinter.StringVar(value= None)
+        self.timer_chosen_time_raw: tkinter.IntVar = tkinter.IntVar(value= 40)
+        self.hints_chosen_level_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
 
     # >>> Getters
     @property
     def difficulty(self):
-        return self.__difficulty
+        return self.difficulty_raw.get()
 
     @property
     def timer_style(self):
-        return self.__timer_style
+        return self.timer_style_raw.get()
 
     @property
     def timer_chosen_time(self):
-        return self.__timer_chosen_time
+        return self.timer_chosen_time_raw.get()
 
     @property
     def hints_chosen_level(self):
-        return self.__hints_chosen_level
+        return self.hints_chosen_level_raw.get()
 
     # >>> Setters
     @difficulty.setter
     def difficulty(self, new_difficulty):
-        self.__difficulty = new_difficulty
+        self.difficulty_raw.set(new_difficulty)
 
     @timer_style.setter
     def timer_style(self, new_timer_style):
-        self.__timer_style = new_timer_style
+        self.timer_style_raw.set(new_timer_style)
 
     @timer_chosen_time.setter
     def timer_chosen_time(self, new_timer_chosen_time):
-        self.__timer_chosen_time = new_timer_chosen_time
+        self.timer_chosen_time_raw.set(new_timer_chosen_time)
 
     @hints_chosen_level.setter
     def hints_chosen_level(self, new_level):
-        self.__hints_chosen_level = new_level
+        self.hints_chosen_level_raw.set(new_level)

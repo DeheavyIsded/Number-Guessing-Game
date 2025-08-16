@@ -10,8 +10,8 @@ class TimerTimerTime:
     def __init__(self, master: tk.Widget, _) -> None:
 
         self.root = master
-        Properties.timer_chosen_time: tk.IntVar= tk.IntVar(value= 40)
         self.help: HelpMe= HelpMe(self.root, self)
+        self.prp = Properties()
 
         # >>> The Timer-Timer—Sub-Menu
         # The "Timer's Time" title
@@ -28,7 +28,7 @@ class TimerTimerTime:
         self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.root,
                                                                text= " Custom time",
                                                                font= ("Arial", 12),
-                                                             variable= Properties.timer_chosen_time,
+                                                          variable= self.prp.timer_chosen_time_raw,
                                                                value= (-1),
                                                                command= self.summon_entrybox,
                                                                bg= "gray20",
@@ -52,9 +52,10 @@ class TimerTimerTime:
         try:
             new_input = abs(int(user_input))
             self.timer_custom_entrybox.config(state= "readonly")
-            Properties.timer_chosen_time = new_input
+            self.prp.timer_chosen_time = new_input
 
         except ValueError:
+            print("Fuck, ValueError on timer_timer_time line 58")
             self.timer_custom_entrybox.delete(0, tk.END)
             messagebox.showerror(title= "Invalid Number",
                                message= "Try entering a normal-integer number.\n Please.")
@@ -64,7 +65,7 @@ class TimerTimerTime:
         return tk.Radiobutton(self.root,
                               text= text,
                               font= ("Arial", 12),
-                              variable= Properties.timer_chosen_time,
+                              variable= self.prp.timer_chosen_time_raw,
                               value= value,
                               bg= "gray20",
                               fg= "white",
@@ -72,6 +73,7 @@ class TimerTimerTime:
                               activeforeground= "white",
                               selectcolor= "black",
                               command= self.refresh_custom)
+
     def timer_checked(self, checked: bool) -> None:
         """Dissapear if Timer checkbox is unchecked"""
         our_widgets: list[tk.Widget]= [self.timer_timer_time_title,
@@ -110,6 +112,7 @@ class TimerTimerTime:
                 submenu_item.place_forget()
             self.timer_custom_entrybox.place_forget()
             return
+
         for submenu_item in submenu_items:
             item_x, item_y = submenu_item_coords[submenu_item]
             submenu_item.place(x= item_x, y= item_y)

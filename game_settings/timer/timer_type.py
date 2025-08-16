@@ -2,7 +2,7 @@
 
 import tkinter as tk
 from .timer_timer_time import TimerTimerTime
-from ..properties import Properties as prp
+from ..properties import Properties
 
 class TimerType:
     """Timer choice menu, Timer | Chronometer"""
@@ -10,7 +10,7 @@ class TimerType:
 
         self.root = master
         self.parent = parent
-        prp.timer_style: tk.StringVar= tk.StringVar(value= None)
+        self.prp = Properties()
         self.timer_enabled: tk.BooleanVar= tk.BooleanVar(value= False)
         self.ttt: TimerTimerTime= TimerTimerTime(self.root, self)
 
@@ -44,9 +44,9 @@ class TimerType:
                                              selectcolor="black",
                                              activebackground="gray20",
                                              activeforeground="white",
-                                             variable= prp.timer_style,
+                                             variable= self.prp.timer_style_raw,
                                              value="chronometer",
-                    command= lambda: self.ttt.check_appearance_status(prp.timer_style))
+                    command= lambda: self.ttt.check_appearance_status(self.prp.timer_style))
 
         self.timer_type_timer = tk.Radiobutton(self.root,
                                                text="Timer",
@@ -56,9 +56,9 @@ class TimerType:
                                                selectcolor="black",
                                                activebackground="gray20",
                                                activeforeground="white",
-                                               variable= prp.timer_style,
+                                               variable= self.prp.timer_style_raw,
                                                value="timer",
-                  command= lambda: self.ttt.check_appearance_status(prp.timer_style))
+                  command= lambda: self.ttt.check_appearance_status(self.prp.timer_style))
 
     def check_timer_type_menu(self) -> None:
         """Checks the appearance status of the timer-type menu"""
@@ -81,4 +81,4 @@ class TimerType:
             item_x, item_y = item_coords[menu_item]
             menu_item.place(x= item_x, y= item_y)
 
-        prp.timer_style = "chronometer"
+        self.prp.timer_style = "chronometer"

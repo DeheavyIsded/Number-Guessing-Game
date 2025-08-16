@@ -2,6 +2,7 @@
 
 import tkinter as tk
 from itertools import cycle
+from .properties import Properties
 
 class Hints:
     """Hints menu for the settings window"""
@@ -10,6 +11,7 @@ class Hints:
         # >>> Hints Choice Menu
         self.root = master
         self.parent = parent
+        self.prp = Properties()
 
         # The "Hints" title
         hints_title = tk.Label(self.root,
@@ -24,7 +26,6 @@ class Hints:
         self.y_cycle = cycle(y_coords)
 
         self.hints_yes = tk.BooleanVar(value= False)
-        self.hints_choice = tk.IntVar(value= 0)
 
         self.level_1 = self.create_radio_button("Greater of Lesser", 1)
         self.level_2 = self.create_radio_button("Temperature", 2)
@@ -59,7 +60,7 @@ class Hints:
         if not self.hints_yes.get():
             self.parent.hints_chosen_level = "0"
         else:
-            self.parent.hints_chosen_level = self.hints_choice.get()
+            self.parent.hints_chosen_level = self.prp.hints_chosen_level
 
         return tk.Radiobutton(self.root,
                               text= text,
@@ -68,7 +69,7 @@ class Hints:
                               activebackground= "gray20",
                               activeforeground= "white",
                               selectcolor= "black",
-                              variable= self.hints_choice,
+                              variable= self.prp.hints_chosen_level_raw,
                               value= value,
                               command= lambda: self.show_descriptions(value))
 
@@ -102,4 +103,4 @@ class Hints:
         self.level_2.place(x= 300, y= next(coords))
         self.level_3.place(x= 300, y= next(coords))
         self.level_4.place(x= 300, y= next(coords))
-        self.show_descriptions(self.hints_choice.get())
+        self.show_descriptions(self.prp.hints_chosen_level_raw.get())

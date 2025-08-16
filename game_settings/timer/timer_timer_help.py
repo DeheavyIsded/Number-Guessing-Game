@@ -93,6 +93,7 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.insert(0, "120")
 
             except ValueError:
+                print("Fuck, ValueError on timer_timer_help line 96")
                 messagebox.showerror("Error", "You should enter valid numbers")
 
         tk.Button(win, text="Calculate",command=calculate_total).grid(row=3, column=0, columnspan=2)

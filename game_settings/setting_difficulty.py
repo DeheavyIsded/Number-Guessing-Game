@@ -26,8 +26,6 @@ class Difficulty:
         difficulty_foregrounds: list[str] = ["white", "white", "white"]
         y_coords: list[int] = [title_y+60, title_y+100, title_y+140]
 
-        prp.difficulty = tk.StringVar(value= "Medium")
-
         for (option, background, foreground, y_coord) in zip(self.difficulty_options,
                                              difficulty_backgrounds,
                                              difficulty_foregrounds,
