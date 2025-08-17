@@ -8,15 +8,14 @@ from ..displayer.display_updater import Updater
 
 class TimerTimerTime:
     """This name is embarassing"""
-    def __init__(self, master: tk.Widget, _, permit) -> None:
+    def __init__(self, parent) -> None:
 
-        self.root = master
-        self.permit = permit
-        self.help: HelpMe= HelpMe(self.root, self)
+        self.parent = parent
+        self.help: HelpMe= HelpMe(self.parent.parent.root, self)
 
         # >>> The Timer-Timer—Sub-Menu
         # The "Timer's Time" title
-        self.timer_timer_time_title= tk.Label(self.root,
+        self.timer_timer_time_title= tk.Label(self.parent.parent.root,
                                          text= "Timer's Time",
                                          font= ("TF2 Build", 15),
                                          bg= "gray20",
@@ -26,10 +25,10 @@ class TimerTimerTime:
         self.timer_time_60: tk.Radiobutton= self.create_radio_buttons("60 seconds", 60)
         self.timer_time_100: tk.Radiobutton= self.create_radio_buttons("100 seconds", 100)
 
-        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.root,
+        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.parent.parent.root,
                                                                text= " Custom time",
                                                                font= ("Arial", 12),
-                                                variable= Properties().timer_chosen_time_raw,
+variable= self.parent.parent.prp.timer_chosen_time_raw, # I'm sick of your fucking C0301
                                                                value= (-1),
                                                                command= self.summon_entrybox,
                                                                bg= "gray20",
@@ -37,7 +36,7 @@ class TimerTimerTime:
                                                                activebackground= "gray20",
                                                                activeforeground= "white",
                                                                selectcolor= "black")
-        self.timer_custom_entrybox: tk.Entry= tk.Entry(self.root,
+        self.timer_custom_entrybox: tk.Entry= tk.Entry(self.parent.parent.root,
                                                     font= ("Consolas", 10),
                                                     bg= "#a0a0a0",
                                                     fg= "black",
@@ -53,7 +52,7 @@ class TimerTimerTime:
         try:
             new_input = abs(int(user_input))
             self.timer_custom_entrybox.config(state= "readonly")
-            Properties().timer_chosen_time = new_input
+            self.parent.parent.prp.timer_chosen_time = new_input
 
         except ValueError:
             print("Fuck, ValueError on timer_timer_time line 58")
@@ -63,10 +62,10 @@ class TimerTimerTime:
 
     def create_radio_buttons(self, text: str, value: int) -> tk.Radiobutton:
         """Create the radio button"""
-        return tk.Radiobutton(self.root,
+        return tk.Radiobutton(self.parent.parent.root,
                               text= text,
                               font= ("Arial", 12),
-                              variable= Properties().timer_chosen_time_raw,
+                              variable= self.parent.parent.prp.timer_chosen_time_raw,
                               value= value,
                               bg= "gray20",
                               fg= "white",
@@ -89,7 +88,7 @@ class TimerTimerTime:
 
     def refresh_custom(self):
         """Delete the text"""
-        Updater(self.root, None, Properties(), self.permit)
+        Updater(self.parent.parent.root, None, self.parent.parent.prp, self.parent.parent.permit)
         self.help.button_placement()
         self.timer_custom_entrybox.place_forget()
         self.timer_custom_entrybox.config(state= tk.NORMAL)
@@ -97,6 +96,12 @@ class TimerTimerTime:
 
     def check_appearance_status(self, timer_type: str) -> None:
         """Control the visiblity of the widget"""
+
+        Updater(self.parent.parent.root, None, self.parent.parent.prp, self.parent.parent.permit
+                                                                            ).update_timer_style(
+                                                                               on= True,
+                                                                               style= timer_type)
+
         submenu_items: list[tk.Widget]= [self.timer_timer_time_title,
                                          self.timer_time_40,
                                          self.timer_time_60,
@@ -123,7 +128,7 @@ class TimerTimerTime:
     def summon_entrybox(self):
         """As the name suggests"""
         self.help.button_placement()
-        if Properties.timer_chosen_time != -1:
+        if self.parent.parent.prp.timer_chosen_time != -1:
             self.timer_custom_entrybox.place_forget()
             return
         self.timer_custom_entrybox.place(x= 200, y= 530, width= 50)

@@ -23,8 +23,9 @@ class Hints:
                                fg= "white")
         hints_title.place(x= 275, y= 75)
 
-        # The "Hints" Options
+        ### The "Hints" Options
         self.hints_yes = tk.BooleanVar(value= False)
+        # The name shows the meaning of True value: yes
 
         self.levels: list[tk.Widget] = [
         self.create_radio_button("Greater of Lesser", 1),
@@ -78,7 +79,9 @@ class Hints:
     def show_descriptions(self, value: int | None = 0) -> None:
         """Show the descripton of the chosen option"""        
 
-        Updater(self.root, self.parent, self.prp, self.permit).update_hint_level()
+        Updater(self.root, self.parent, self.prp, self.permit).update_hint_level(
+            hints_checked= self.hints_yes.get())
+
         hint_descriptions: dict[int, str]= {
             0: "",
             1: "Shows if your incorrect guess is bigger or smaller",
@@ -90,17 +93,25 @@ class Hints:
         if not self.hints_yes.get():
             self.description.config(text= hint_descriptions[0])
             return
+
         self.description.config(text= hint_descriptions[value])
 
     def check_radio_buttons(self) -> None:
         """Check the visiblity of Radio Buttons"""
+
+        Updater(self.root, self.parent, self.prp, self.permit).update_hint_level(
+            hints_checked= self.hints_yes.get())
+
         if not self.hints_yes.get():
+
             for level in self.levels:
                 level.place_forget()
+
             self.show_descriptions()
             return
 
         coords = cycle((150, 175, 200, 225))
+
         for level in self.levels:
             level.place(x= 300, y= next(coords))
 

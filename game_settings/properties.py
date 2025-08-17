@@ -35,6 +35,7 @@ class Properties:
         self.timer_style_raw: tkinter.StringVar = tkinter.StringVar(value= None)
         self.timer_chosen_time_raw: tkinter.IntVar = tkinter.IntVar(value= 40)
         self.hints_chosen_level_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
+        self.timer_enabled_raw: tkinter.BooleanVar = tkinter.BooleanVar(value= False)
 
     # >>> Getters
     @property
@@ -57,6 +58,11 @@ class Properties:
         """Getter for Hint Level"""
         return self.hints_chosen_level_raw.get()
 
+    @property
+    def timer_enabled(self):
+        """Getter for Timer Style"""
+        return self.timer_enabled_raw.get()
+
     # >>> Setters
     @difficulty.setter
     def difficulty(self, new_difficulty):
@@ -73,3 +79,7 @@ class Properties:
     @hints_chosen_level.setter
     def hints_chosen_level(self, new_level):
         self.hints_chosen_level_raw.set(new_level)
+
+    @timer_enabled.setter
+    def timer_style(self, new_status):
+        self.timer_enabled_raw.set(new_status)

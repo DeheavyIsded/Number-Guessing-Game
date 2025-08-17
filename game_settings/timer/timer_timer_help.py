@@ -5,13 +5,12 @@ from tkinter import messagebox
 
 class HelpMe:
     """The button and its window"""
-    def __init__(self, master, parent):
+    def __init__(self, parent):
 
-        self.root= master
-        self.parent= parent
+        self.parent = parent
 
         # Just the button this time
-        self.help_me = tk.Button(self.root,
+        self.help_me = tk.Button(self.parent.parent.parent.root,
                                  text= " HELP ",
                                  font= ("Consolas", 16),
                                  bg= "yellow",
@@ -21,14 +20,15 @@ class HelpMe:
                                  command= self.pop_it_up)
     def button_placement(self):
         """Place the button if conditions are suitable"""
-        if not self.parent.timer_time.get() == -1:
+        if self.parent.parent.parent.prp.timer_chosen_time != -1:
             self.help_me.place_forget()
             return
+
         self.help_me.place(x= 262, y= 510)
 
     def pop_it_up(self):
         """Pop-up the big guns!"""
-        win = tk.Toplevel(self.root)
+        win = tk.Toplevel(self.parent.parent.parent.root)
         win.geometry("300x175")
         win.title("Time Converter")
         win.configure(background= "#c0c0c0")
@@ -86,6 +86,7 @@ class HelpMe:
                         foreground= "black")
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, str(total))
+
                 else:
                     result_label.config(text= "Man, just turn off the timer")
                     vanish_label()
@@ -93,7 +94,7 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.insert(0, "120")
 
             except ValueError:
-                print("Fuck, ValueError on timer_timer_help line 96")
+                print("Reporting ValueError caught on timer_timer_help line 98")
                 messagebox.showerror("Error", "You should enter valid numbers")
 
         tk.Button(win, text="Calculate",command=calculate_total).grid(row=3, column=0, columnspan=2)

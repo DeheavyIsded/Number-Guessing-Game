@@ -35,8 +35,6 @@ class Display:
         gui_components.append(self.hint_level_display)
 
         # Timer Style display
-        timer_style = self.prp.timer_style.capitalize() if self.prp.timer_style.capitalize() else\
-            "Not Chosen"
         self.timer_style_display = tk.Label(self.root,
                                        font= gui_font)
         gui_components.append(self.timer_style_display)
