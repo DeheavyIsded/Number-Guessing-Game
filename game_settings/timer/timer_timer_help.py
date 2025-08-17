@@ -21,7 +21,8 @@ class HelpMe:
 
     def button_placement(self):
         """Place the button if conditions are suitable"""
-        if self.parent.parent.parent.parent.prp.timer_chosen_time != -1:
+        if self.parent.parent.parent.parent.prp.timer_chosen_time != -1 or \
+            self.parent.parent.parent.parent.prp.timer_style == "chronometer":
             self.help_me.place_forget()
             return
 

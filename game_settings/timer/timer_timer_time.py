@@ -77,8 +77,9 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
                               command= self.refresh_custom)
 
     def timer_checked(self, checked: bool) -> None:
-        """Dissapear if Timer checkbox is unchecked"""
+        """Disappear if Timer checkbox is unchecked"""
         self.parent.parent.parent.upd.update_timer_style()
+        self.parent.parent.parent.upd.update_chosen_time()
 
         our_widgets: list[tk.Widget]= [self.timer_timer_time_title,
                                        self.timer_time_40,
@@ -86,7 +87,10 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
                                        self.timer_time_100,
                                        self.timer_time_custom,
                                        self.timer_custom_entrybox]
-        if not checked:
+
+        self.help.button_placement()
+
+        if not checked: # If the Timer box is not checked
             for widget in our_widgets:
                 widget.place_forget()
 
@@ -102,7 +106,8 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
     def check_appearance_status(self) -> None:
         """Control the visiblity of the widget"""
 
-
+        self.parent.parent.parent.prp.timer_chosen_time = 40
+        print(self.parent.parent.parent.prp.timer_chosen_time, flush= True)
         submenu_items: list[tk.Widget]= [self.timer_timer_time_title,
                                          self.timer_time_40,
                                          self.timer_time_60,
@@ -119,6 +124,7 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
 
         self.parent.parent.parent.upd.update_timer_style()
 
+        # If Chronometer is chosen
         if self.parent.parent.parent.prp.timer_style != "timer":
             for submenu_item in submenu_items:
                 submenu_item.place_forget()
@@ -126,11 +132,11 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
             self.timer_custom_entrybox.place_forget()
             return
 
+        # If Timer is chosen
         for submenu_item in submenu_items:
             item_x, item_y = submenu_item_coords[submenu_item]
             submenu_item.place(x= item_x, y= item_y)
 
-        self.parent.parent.parent.prp.timer_chosen_time = 40
 
     def summon_entrybox(self):
         """As the name suggests"""
@@ -139,6 +145,7 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
         self.help.button_placement()
         if self.parent.parent.parent.prp.timer_chosen_time != -1:
             self.timer_custom_entrybox.place_forget()
+            self.help.button_placement()
             return
 
         self.timer_custom_entrybox.place(x= 200, y= 530, width= 50)

@@ -62,7 +62,7 @@ class Updater:
                                                         f"{self.prp.timer_chosen_time} seconds")
             return
 
-        if custom_time:
+        if custom_time: # XXX Still shows custom time when pick cm and timer back
             self.screen.chosen_time_display.config(text= f"Time: {custom_time} seconds")
 
         else:

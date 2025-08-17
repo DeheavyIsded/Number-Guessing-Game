@@ -60,6 +60,7 @@ class TimerType:
     def check_timer_type_menu(self) -> None:
         """Checks the appearance status of the timer-type menu"""
         self.parent.parent.upd.update_timer_style()
+        self.parent.parent.upd.update_chosen_time()
 
         menu_items: list[tk.Widget] = [self.timer_type_title,
                                        self.timer_type_chronometer,
@@ -70,15 +71,21 @@ class TimerType:
             self.timer_type_chronometer: (30, 375),
             self.timer_type_timer: (30, 400)}
 
+        # Is the Timer box checked?
         if not self.parent.parent.prp.timer_enabled:
+
+            # For no:
             for menu_item in menu_items:
                 menu_item.place_forget()
 
             self.time.timer_checked(False)
             return
 
+        # For yes:
         for menu_item in menu_items:
             item_x, item_y = item_coords[menu_item]
             menu_item.place(x= item_x, y= item_y)
+            self.parent.parent.upd.update_timer_style()
+            self.parent.parent.upd.update_chosen_time()
 
         self.parent.parent.prp.timer_style = "chronometer"

@@ -5,13 +5,13 @@ from .timer_type import TimerType
 
 class Timer:
     """Main class for the menu"""
-    def __init__(self, master):
+    def __init__(self, parent):
 
         # >>> Timer choice menu
-        self.root = master
+        self.parent= parent
 
         # Title for the main menu
-        timer_title = tk.Label(self.root,
+        timer_title = tk.Label(self.parent.root,
                                text= "Timer",
                                font= ("TF2 Build", 25, "underline"),
                                bg= "gray20",
