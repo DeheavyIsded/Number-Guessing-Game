@@ -10,7 +10,7 @@ class HelpMe:
         self.parent = parent
 
         # Just the button this time
-        self.help_me = tk.Button(self.parent.parent.parent.root,
+        self.help_me = tk.Button(self.parent.parent.parent.parent.root,
                                  text= " HELP ",
                                  font= ("Consolas", 16),
                                  bg= "yellow",
@@ -18,9 +18,10 @@ class HelpMe:
                                  activebackground= "cyan",
                                  activeforeground= "white",
                                  command= self.pop_it_up)
+
     def button_placement(self):
         """Place the button if conditions are suitable"""
-        if self.parent.parent.parent.prp.timer_chosen_time != -1:
+        if self.parent.parent.parent.parent.prp.timer_chosen_time != -1:
             self.help_me.place_forget()
             return
 
@@ -28,7 +29,7 @@ class HelpMe:
 
     def pop_it_up(self):
         """Pop-up the big guns!"""
-        win = tk.Toplevel(self.parent.parent.parent.root)
+        win = tk.Toplevel(self.parent.parent.parent.parent.root)
         win.geometry("300x175")
         win.title("Time Converter")
         win.configure(background= "#c0c0c0")

@@ -2,16 +2,13 @@
 
 import tkinter as tk
 from .timer_type import TimerType
-from ..properties import Properties
 
 class Timer:
     """Main class for the menu"""
-    def __init__(self, master, _, permit):
+    def __init__(self, master):
 
         # >>> Timer choice menu
         self.root = master
-        self.permit = permit
-        self.prp = Properties()
 
         # Title for the main menu
         timer_title = tk.Label(self.root,

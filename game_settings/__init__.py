@@ -28,6 +28,10 @@ class GameSettings:
         self.root.iconphoto(False, tk.PhotoImage(
             file= os.path.join(os.path.dirname(__file__), "icon.png")))
 
+        self.prp = Properties()
+        self.swc = Showcase(self.root, self)
+        self.upd = Updater(self.prp, self.swc.give_permit())
+
         # Custom font
         ctypes.windll.gdi32.AddFontResourceW("tf2build.ttf")
         self.title_font = tkFont.Font(
@@ -68,15 +72,14 @@ class GameSettings:
         # Load the custom modules' objects
         self.load_modules([Difficulty, Hints, Timer])
 
-        Updater(self.root, self, Properties(), self.swc.give_permit()).update_general()
+        self.upd.update_general()
         # XXX self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
     def load_modules(self, modules: list):
         """Load each module one by one"""
-        self.swc = Showcase(self.root, self)
         for module in modules:
-            module(self.root, self, self.swc.give_permit())
+            module(self)
 
     def add_hover(self,
                   widget,

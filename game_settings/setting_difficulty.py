@@ -1,20 +1,16 @@
 """The Difficulty setting for the settings menu"""
 
 import tkinter as tk
-from .properties import Properties
-from .displayer.display_updater import Updater
 
 class Difficulty:
     """The Difficulty menu for the settings menu"""
-    def __init__(self, master, _, permit):
+    def __init__(self, parent):
 
         # >>> Difficulty choosing menu
-        self.root = master
-        self.permit = permit
-        self.prp = Properties()
+        self.parent = parent
 
         # The "Difficulty" title
-        difficulty_title = tk.Label(self.root,
+        difficulty_title = tk.Label(self.parent.root,
                                     text= "Difficulty",
                                     font= ("TF2 Build", 25, "underline"),
                                     bg= "gray20",
@@ -33,9 +29,9 @@ class Difficulty:
                                                              difficulty_foregrounds,
                                                              y_coords):
             option_button = tk.Radiobutton(
-                self.root,
+                self.parent.root,
                 text= option,
-                variable= self.prp.difficulty_raw,
+                variable= self.parent.prp.difficulty_raw,
                 value= option,
                 font=("TF2 Build", 16),
                 bg= background,
@@ -43,7 +39,7 @@ class Difficulty:
                 activebackground= self.decrease_color_hue(background, 50),
                 selectcolor= self.decrease_color_hue(background, 50),
                 indicatoron= True,
-                command= Updater(self.root, None, self.prp, self.permit).update_difficulty)
+                command= self.parent.upd.update_difficulty)
             option_button.place(x= 10, y= y_coord)
 
     def decrease_color_hue(self, color: str, amount: str) -> str:

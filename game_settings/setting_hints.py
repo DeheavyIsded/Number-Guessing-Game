@@ -2,21 +2,16 @@
 
 import tkinter as tk
 from itertools import cycle
-from .properties import Properties
-from .displayer.display_updater import Updater
 
 class Hints:
     """Hints menu for the settings window"""
-    def __init__(self, master, parent, permit):
+    def __init__(self, parent):
 
         # >>> Hints Choice Menu
-        self.root = master
         self.parent = parent
-        self.permit = permit
-        self.prp = Properties()
 
         # The "Hints" title
-        hints_title = tk.Label(self.root,
+        hints_title = tk.Label(self.parent.root,
                                text= "                Hints               ",
                                font= ("TF2 Build", 25, "underline"),
                                bg= "gray20",
@@ -34,7 +29,7 @@ class Hints:
         self.create_radio_button("Premium Information", 4)
         ]
 
-        self.description: tk.Label = tk.Label(self.root,
+        self.description: tk.Label = tk.Label(self.parent.root,
                                text= "",
                                bg= "gray20",
                                fg= "yellow",
@@ -42,7 +37,7 @@ class Hints:
         self.description.place(x= 440, y= 150)
 
         # The "Hints" checkbox
-        hints_toggle = tk.Checkbutton(self.root,
+        hints_toggle = tk.Checkbutton(self.parent.root,
                                       text= "Get Hints",
                                       font= ("Arial", 10, "bold"),
                                       bg= "gray20",
@@ -63,23 +58,23 @@ class Hints:
             self.parent.hints_chosen_level = "0"
 
         else:
-            self.parent.hints_chosen_level = self.prp.hints_chosen_level
+            self.parent.hints_chosen_level = self.parent.prp.hints_chosen_level
 
-        return tk.Radiobutton(self.root,
+        return tk.Radiobutton(self.parent.root,
                               text= text,
                               bg= "gray20",
                               fg= "white",
                               activebackground= "gray20",
                               activeforeground= "white",
                               selectcolor= "black",
-                              variable= self.prp.hints_chosen_level_raw,
+                              variable= self.parent.prp.hints_chosen_level_raw,
                               value= value,
                               command= lambda: self.show_descriptions(value))
 
     def show_descriptions(self, value: int | None = 0) -> None:
         """Show the descripton of the chosen option"""        
 
-        Updater(self.root, self.parent, self.prp, self.permit).update_hint_level(
+        self.parent.upd.update_hint_level(
             hints_checked= self.hints_yes.get())
 
         hint_descriptions: dict[int, str]= {
@@ -99,7 +94,7 @@ class Hints:
     def check_radio_buttons(self) -> None:
         """Check the visiblity of Radio Buttons"""
 
-        Updater(self.root, self.parent, self.prp, self.permit).update_hint_level(
+        self.parent.upd.update_hint_level(
             hints_checked= self.hints_yes.get())
 
         if not self.hints_yes.get():
@@ -115,4 +110,4 @@ class Hints:
         for level in self.levels:
             level.place(x= 300, y= next(coords))
 
-        self.show_descriptions(self.prp.hints_chosen_level)
+        self.show_descriptions(self.parent.prp.hints_chosen_level)
