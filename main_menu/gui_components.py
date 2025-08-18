@@ -100,11 +100,11 @@ class Gui:
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
-    def add_hover(self,
-                  widget: tk.Widget,
-                  background: tuple[str, str]= (None, None),
-                  foreground: tuple[str, str]= (None, None),
-                        text: tuple[str, str]= (None, None)) -> None:
+    def add_hover(self=None,
+                  widget: tk.Widget=object,
+                  background: tuple[str, str]=(None, None),
+                  foreground: tuple[str, str]=(None, None),
+                        text: tuple[str, str]=(None, None)) -> None:
         """
         Add mouse-over effects to the widgets
         
@@ -128,18 +128,25 @@ class Gui:
         hover_fg, normal_fg = foreground
         hover_text, normal_text = text
 
-        def on_enter(_):
-            new_text = np.random.choice(self.parent.hover_texts) if isinstance(hover_text,
-                                                               list) else (
-                                                                   hover_text or widget["text"])
+        def on_enter1(_):
+            new_text: str= np.random.choice(self.parent.hover_texts) if \
+                                      isinstance(hover_text, list) else \
+                                           (hover_text or widget["text"])
+
             widget.config(background= hover_bg or widget["background"],
                           foreground= hover_fg or widget["foreground"],
-                         text= new_text)
+                          text= new_text)
+        def on_enter2(_):
+            widget.config(background= hover_bg or widget["background"],
+                          foreground= hover_fg or widget["foreground"],
+                          text= hover_text or widget["text"])
 
         def on_leave(_):
             widget.config(background= normal_bg or widget["background"],
                           foreground= normal_fg or widget["foreground"],
                           text= normal_text or widget["text"])
+
+        on_enter = on_enter1 if self else on_enter2
 
         widget.bind("<Enter>", on_enter)
         widget.bind("<Leave>", on_leave)

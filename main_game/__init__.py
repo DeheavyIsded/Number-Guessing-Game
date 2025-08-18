@@ -1,10 +1,14 @@
-"""Game of the Number Guessing Game"""
+"""Game part of the Number Guessing Game"""
 
 import os
 import tkinter as tk
 from tkinter import messagebox
-from ..game_settings.properties import Properties
-from .gui_ngg import NGGui
+try:
+    from ..game_settings.properties import Properties
+    from .main_game.gui_ngg import NGGui
+except ImportError:
+    from game_settings.properties import Properties
+    from main_game.gui_ngg import NGGui
 
 class NumberGuessing:
     """Number Guessing Game"""
@@ -16,7 +20,7 @@ class NumberGuessing:
         self.root = tk.Tk()
         self.root.geometry("1000x600")
         self.root.title("Number Guessing Game")
-        self.root.iconphoto(False,
+        self.root.iconphoto(False, # FIXME: "icon.png" is bad path!
                             tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png")))
         NGGui(self)
 

@@ -1,0 +1,64 @@
+number_guessing/
+|— __pycache__/
+|  |— game_settings.cpython-312.pyc
+|  |— setting_difficulty.cpython-312.pyc
+|  |— setting_hints.cpython-312.pyc
+|  ⌊— setting_timer.cpython-312.pyc
+|— .git/
+|  ⌊— ...
+|— game_settings/
+|  |— __pycache__/
+|  |  |— __init__.cpython-312.pyc
+|  |  |— properties.cpython-312.pyc
+|  |  |— setting_difficulty.cpython-312.pyc
+|  |  ⌊— setting_hints.cpython-312.pyc
+|  |— displayer/
+|  |  |— __pycache__/
+|  |  |  |— __init__.cpython-312.pyc
+|  |  |  |— display_updater.cpython-312.pyc
+|  |  |  |— display.cpython-312.pyc
+|  |  |  ⌊— start_button.cpython-312.pyc
+|  |  |— __init__.py
+|  |  |— display_updater.py
+|  |  |— display.py
+|  |  ⌊— start_button
+|  |— timer/
+|  |  |— __pycache__/
+|  |  | |— __init__.cpython-312.pyc
+|  |  | |— timer_showcase.cpython-312.pyc
+|  |  | |— timer_timer_help.cpython-312.pyc
+|  |  | |— timer_timer_time.cpython-312.pyc
+|  |  | ⌊— timer_type.cpython-312.pyc
+|  |  |— __init__.py
+|  |  |— timer_timer_help.py
+|  |  |— timer_timer_time.py
+|  |  ⌊— timer_type.py
+|  |— __init__.py
+|  |— icon.png
+|  |— plan.png
+|  |— properties.py
+|  |— setting_difficulty.py
+|  ⌊— setting_hints.py
+|— main_game/
+|  |— __pycache__/
+|  |  ⌊— __init__.cpython-312.pyc
+|  |— __init__.py
+|  ⌊— gui_ngg.py
+|— main_menu/
+|  |— __pycache__/
+|  |  |— __init__.cpython-312.pyc
+|  |  |— gui_components.cpython-312.pyc
+|  |  ⌊— main_menu_gui.cpython-312.pyc
+|  |— __init__.py
+|  |— gui_components.py
+|  |— icon.png
+|  |— main_menu_gui.py
+|  |— peynir.yeah
+|  ⌊— stats.py
+|— .gitignore
+|— icon.png
+|— main.py
+|— ngg.bat
+|— prompt.txt
+|— README.md
+⌊— tf2build.ttf
