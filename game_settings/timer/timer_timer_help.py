@@ -10,7 +10,7 @@ class HelpMe:
         self.parent = parent
 
         # Just the button this time
-        self.help_me = tk.Button(self.parent.parent.parent.parent.root,
+        self.help_me = tk.Button(self.parent.parent.parent.root,
                                  text= " HELP ",
                                  font= ("Consolas", 16),
                                  bg= "yellow",
@@ -30,7 +30,7 @@ class HelpMe:
 
     def pop_it_up(self):
         """Pop-up the big guns!"""
-        win = tk.Toplevel(self.parent.parent.parent.parent.root)
+        win = tk.Toplevel(self.parent.parent.parent.root)
         win.geometry("300x175")
         win.title("Time Converter")
         win.configure(background= "#c0c0c0")
@@ -96,7 +96,6 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.insert(0, "120")
 
             except ValueError:
-                print("Reporting ValueError caught on timer_timer_help line 98")
                 messagebox.showerror("Error", "You should enter valid numbers")
 
         tk.Button(win, text="Calculate",command=calculate_total).grid(row=3, column=0, columnspan=2)

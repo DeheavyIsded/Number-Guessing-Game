@@ -11,7 +11,7 @@ class TimerType:
         self.time: TimerTimerTime= TimerTimerTime(self)
 
         # Checkbox for the timer
-        timer_checkbox = tk.Checkbutton(self.parent.parent.root,
+        timer_checkbox = tk.Checkbutton(self.parent.root,
                                         text= "Timer",
                                         font= ("Arial", 10, "bold"),
                                         bg= "gray20",
@@ -27,13 +27,13 @@ class TimerType:
         timer_checkbox.place(x= 10, y= 325)
 
         # Title for the timer type selection menu
-        self.timer_type_title = tk.Label(self.parent.parent.root,
+        self.timer_type_title = tk.Label(self.parent.root,
                                text= "Timer Type",
                                font= ("TF2 Build", 15),
                                bg= "gray20",
                                fg= "cyan")
 
-        self.timer_type_chronometer = tk.Radiobutton(self.parent.parent.root,
+        self.timer_type_chronometer = tk.Radiobutton(self.parent.root,
                                              text="Chronometer",
                                              font=("Arial", 10, "bold"),
                                              bg="gray20",
@@ -45,7 +45,7 @@ class TimerType:
                                              value="chronometer",
                                              command= self.time.check_appearance_status)
 
-        self.timer_type_timer = tk.Radiobutton(self.parent.parent.root,
+        self.timer_type_timer = tk.Radiobutton(self.parent.root,
                                                text="Timer",
                                                font=("Arial", 10, "bold"),
                                                bg="gray20",

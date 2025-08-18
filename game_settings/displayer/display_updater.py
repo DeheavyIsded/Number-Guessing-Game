@@ -57,12 +57,12 @@ class Updater:
     def update_chosen_time(self, custom_time: int | None=None) -> None:
         """Update the chosen timer to the chosen one"""
 
-        if self.prp.timer_chosen_time != -1:
+        if self.prp.timer_chosen_time != -1 or custom_time is not None:
             self.screen.chosen_time_display.config(text= "Time: "
                                                         f"{self.prp.timer_chosen_time} seconds")
             return
 
-        if custom_time: # XXX Still shows custom time when pick cm and timer back
+        if custom_time:
             self.screen.chosen_time_display.config(text= f"Time: {custom_time} seconds")
 
         else:

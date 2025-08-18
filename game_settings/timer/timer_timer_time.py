@@ -13,7 +13,7 @@ class TimerTimerTime:
 
         # >>> The Timer-Timer—Sub-Menu
         # The "Timer's Time" title
-        self.timer_timer_time_title= tk.Label(self.parent.parent.parent.root,
+        self.timer_timer_time_title= tk.Label(self.parent.parent.root,
                                          text= "Timer's Time",
                                          font= ("TF2 Build", 15),
                                          bg= "gray20",
@@ -24,7 +24,7 @@ class TimerTimerTime:
         self.timer_time_100: tk.Radiobutton= self.create_radio_buttons("100 seconds", 100)
 
         # The custom time choice button
-        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.parent.parent.parent.root,
+        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.parent.parent.root,
                                                                text= " Custom time",
                                                                font= ("Arial", 12),
 variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of your fucking C0301
@@ -37,7 +37,7 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
                                                                selectcolor= "black")
 
         # Entrybox for custom time entrance
-        self.timer_custom_entrybox: tk.Entry= tk.Entry(self.parent.parent.parent.root,
+        self.timer_custom_entrybox: tk.Entry= tk.Entry(self.parent.parent.root,
                                                     font= ("Consolas", 10),
                                                     bg= "#a0a0a0",
                                                     fg= "black",
@@ -54,17 +54,16 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
             new_input = abs(int(user_input))
             self.timer_custom_entrybox.config(state= "readonly")
             self.parent.parent.parent.prp.timer_chosen_time = new_input
-            self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get)
+            self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
 
         except ValueError:
-            print("Fuck, ValueError on timer_timer_time line 58")
             self.timer_custom_entrybox.delete(0, tk.END)
             messagebox.showerror(title= "Invalid Number",
                                message= "Try entering a normal-integer number.\n Please.")
 
     def create_radio_buttons(self, text: str, value: int) -> tk.Radiobutton:
         """Create the radio button"""
-        return tk.Radiobutton(self.parent.parent.parent.root,
+        return tk.Radiobutton(self.parent.parent.root,
                               text= text,
                               font= ("Arial", 12),
                               variable= self.parent.parent.parent.prp.timer_chosen_time_raw,
@@ -107,7 +106,13 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
         """Control the visiblity of the widget"""
 
         self.parent.parent.parent.prp.timer_chosen_time = 40
-        print(self.parent.parent.parent.prp.timer_chosen_time, flush= True)
+
+        self.timer_custom_entrybox.delete(0, tk.END)
+        self.help.button_placement()
+
+        self.parent.parent.parent.upd.update_timer_style()
+        self.parent.parent.parent.upd.update_chosen_time()
+
         submenu_items: list[tk.Widget]= [self.timer_timer_time_title,
                                          self.timer_time_40,
                                          self.timer_time_60,
@@ -122,7 +127,6 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
             self.timer_time_custom: (70, 525)
             }
 
-        self.parent.parent.parent.upd.update_timer_style()
 
         # If Chronometer is chosen
         if self.parent.parent.parent.prp.timer_style != "timer":

@@ -79,7 +79,7 @@ class GameSettings:
     def load_modules(self, modules: list):
         """Load each module one by one"""
         for module in modules:
-            module(self)
+            module(self.root, self)
 
     def add_hover(self,
                   widget,

@@ -4,7 +4,7 @@ import tkinter as tk
 
 class Difficulty:
     """The Difficulty menu for the settings menu"""
-    def __init__(self, parent):
+    def __init__(self, _, parent):
 
         # >>> Difficulty choosing menu
         self.parent = parent

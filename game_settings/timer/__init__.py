@@ -5,10 +5,11 @@ from .timer_type import TimerType
 
 class Timer:
     """Main class for the menu"""
-    def __init__(self, parent):
+    def __init__(self, master, parent):
 
         # >>> Timer choice menu
-        self.parent= parent
+        self.root = master
+        self.parent = parent
 
         # Title for the main menu
         timer_title = tk.Label(self.parent.root,

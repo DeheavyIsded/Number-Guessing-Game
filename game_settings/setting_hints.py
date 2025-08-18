@@ -5,7 +5,7 @@ from itertools import cycle
 
 class Hints:
     """Hints menu for the settings window"""
-    def __init__(self, parent):
+    def __init__(self, _, parent):
 
         # >>> Hints Choice Menu
         self.parent = parent
