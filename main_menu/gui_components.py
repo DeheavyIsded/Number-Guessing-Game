@@ -101,11 +101,28 @@ class Gui:
         self.root.mainloop()
 
     def add_hover(self,
-                  widget,
+                  widget: tk.Widget,
                   background: tuple[str, str]= (None, None),
                   foreground: tuple[str, str]= (None, None),
                         text: tuple[str, str]= (None, None)) -> None:
-        """Add mouse-over effects to the widgets"""
+        """
+        Add mouse-over effects to the widgets
+        
+        Args:
+            -widget: tkinter.Widget -> The target widget
+
+            -background: tuple[str, str] -> background colors:
+                background= ("hover_bg", "normal_bg")
+
+            -foreground: tuple[str, str] -> foreground colors:
+                foreground= ("hover_fg", "normal_fg")
+
+
+        Optional Arg:
+
+            -text: tuple[str, str] -> texts:
+                foreground= ("hover_text", "normal_text")
+        """
 
         hover_bg, normal_bg = background
         hover_fg, normal_fg = foreground

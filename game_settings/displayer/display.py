@@ -18,7 +18,7 @@ class Display:
         gui_features: dict= {
             "bg": "gray20",
             "fg": "white",
-            "font": ("TF2 Build", 9)
+            "font": ("TF2 Build", 12)
             }
 
         # Difficulty display

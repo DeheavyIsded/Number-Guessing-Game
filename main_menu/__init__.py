@@ -14,8 +14,9 @@ class Start:
         self.root = tk.Tk()
         self.root.geometry("800x500")
         self.root.title("Number Guessing Game")
-        self.root.iconphoto(False, tk.PhotoImage(
-             file= os.path.join(os.path.dirname(__file__), "icon.png")))
+        self.root.iconphoto(False,
+                            tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png")))
+
         self.root_background = "#aaccff"
         self.root.configure(background= self.root_background)
 
@@ -30,9 +31,9 @@ class Start:
 
         MainMenu(self.root, self)
 
-    def aaa(self) -> None:
+    def aaa(self) -> type:
         """Placeholder for Refactor code R0903"""
-        return None
-    def bbb(self) -> None:
+        return str
+    def bbb(self) -> type:
         """Placeholder for Refactor code R0903"""
-        return None
+        return int

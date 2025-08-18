@@ -2,6 +2,7 @@
 
 import tkinter as tk
 from .display import Display
+from .start_button import StartGame
 
 class Showcase: # pylint: disable= too-few-public-methods
     """Show the chosen settings"""
@@ -16,6 +17,7 @@ class Showcase: # pylint: disable= too-few-public-methods
         title.place(x= 400, y= 275)
 
         self.display = Display(self.root)
+        StartGame(self)
 
     def give_permit(self):
         """Give display's self to other modules"""
