@@ -71,10 +71,12 @@ class TimerType:
             self.timer_type_chronometer: (30, 375),
             self.timer_type_timer: (30, 400)}
 
+        self.parent.parent.prp.timer_style = "chronometer"
+
         # Is the Timer box checked?
         if not self.parent.parent.prp.timer_enabled:
 
-            # For no:
+        # For no:
             for menu_item in menu_items:
                 menu_item.place_forget()
 
@@ -87,5 +89,3 @@ class TimerType:
             menu_item.place(x= item_x, y= item_y)
             self.parent.parent.upd.update_timer_style()
             self.parent.parent.upd.update_chosen_time()
-
-        self.parent.parent.prp.timer_style = "chronometer"

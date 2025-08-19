@@ -20,11 +20,11 @@ class NumberGuessing:
         self.root = tk.Tk()
         self.root.geometry("1000x600")
         self.root.title("Number Guessing Game")
-        self.root.iconphoto(False, # FIXME: "icon.png" is bad path!
+        self.root.iconphoto(False,
                             tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png")))
         NGGui(self)
 
-        self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
+        # XXX self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
     def on_exit(self):

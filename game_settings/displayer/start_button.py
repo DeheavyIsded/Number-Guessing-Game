@@ -18,16 +18,16 @@ class StartGame:
 
         # The button
         self.start_button = tk.Button(self.parent.root, text= "  START  ",
-                                      bg= "#00ffff", fg= "#c0c0c0",
-                                      activebackground= "#00cccc", activeforeground= "white",
+                                      bg= "#0099ff", fg= "#d0d0d0",
+                                      activebackground= "#0066cc", activeforeground= "white",
                                       command= self.start_game)
 
         Gui.add_hover(widget= self.start_button,
-                      background= ("#00d8d8", "#00ffff"),
-                      foreground= ("#a0a0a0", "#c0c0c0"),
+                      background= ("#0078d8", "#0099ff"),
+                      foreground= ("#e0e0e0", "#d0d0d0"),
                       text= ("  STRUT  ", "  START  "))
 
-        self.start_button.place(x= 450, y= 420)
+        self.start_button.place(x= 450, y= 450)
 
     def start_game(self):
         """Signal the start to the main game's package"""
