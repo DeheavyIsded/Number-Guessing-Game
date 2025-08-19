@@ -37,14 +37,26 @@ class Properties:
         
         *timer_custom_time
     """
-    def __init__(self) -> None:
+    def __init__(self, no_reset: int | None=None) -> None:
+        """
+        Parameters
+        ----------
+        no_reset : int | None, optional
 
-        self.difficulty_raw: tkinter.StringVar = tkinter.StringVar(value= "Medium")
-        self.timer_style_raw: tkinter.StringVar = tkinter.StringVar(value= None)
-        self.timer_chosen_time_raw: tkinter.IntVar = tkinter.IntVar(value= 40)
-        self.hints_chosen_level_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
-        self.timer_enabled_raw: tkinter.BooleanVar = tkinter.BooleanVar(value= False)
-        self.timer_custom_time_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
+        o------------------------------o
+            If has a value, the values won't be assigned to the properties preventing a reset.
+
+            Default is None. If no parameters are given, the properties will be assgined a value
+
+        Returns None
+        """
+        if no_reset is None:
+            self.difficulty_raw: tkinter.StringVar = tkinter.StringVar(value= "Medium")
+            self.timer_style_raw: tkinter.StringVar = tkinter.StringVar(value= None)
+            self.timer_chosen_time_raw: tkinter.IntVar = tkinter.IntVar(value= 40)
+            self.hints_chosen_level_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
+            self.timer_enabled_raw: tkinter.BooleanVar = tkinter.BooleanVar(value= False)
+            self.timer_custom_time_raw: tkinter.IntVar = tkinter.IntVar(value= 0)
 
     # >>> Getters
     @property

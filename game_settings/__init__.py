@@ -29,7 +29,7 @@ class GameSettings:
             file= os.path.join(os.path.dirname(__file__), "icon.png")))
 
         self.prp = Properties()
-        self.swc = Showcase(self.root, self)
+        self.swc = Showcase(self)
         self.upd = Updater(self.prp, self.swc.give_permit())
 
         # Custom font

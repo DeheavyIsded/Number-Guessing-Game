@@ -17,7 +17,7 @@ class StartGame:
         self.parent = parent
 
         # The button
-        self.start_button = tk.Button(self.parent.root, text= "  START  ",
+        self.start_button = tk.Button(self.parent.parent.root, text= "  START  ",
                                       bg= "#0099ff", fg= "#d0d0d0",
                                       activebackground= "#0066cc", activeforeground= "white",
                                       command= self.start_game)
@@ -36,5 +36,5 @@ class StartGame:
         if not answer:
             return
 
-        self.parent.root.destroy()
-        NumberGuessing()
+        self.parent.parent.root.destroy()
+        NumberGuessing(prp= self.parent.parent.prp)

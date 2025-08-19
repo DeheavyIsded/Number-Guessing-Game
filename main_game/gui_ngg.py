@@ -8,4 +8,5 @@ class NGGui:
 
         self.parent = parent
 
-        self.test_title = tk.Label(text= "  GAME.  ")
+        self.test_title = tk.Label(self.parent.root, text= "  GAME.  ")
+        self.test_title.place(x= 100, y= 50)
