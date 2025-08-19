@@ -10,7 +10,7 @@ class GuessTaker:
         self.parent = parent
 
         self.guess_entrybox = tk.Entry(self.parent.parent.root)
-        self.guess_entrybox.place(x= 400, y= 500)
+        self.guess_entrybox.place(x= 400, y= 100)
 
         self.guess_entrybox.bind("<Return>", self.check_entry)
 
@@ -27,11 +27,19 @@ class GuessTaker:
             self.guess_entrybox.delete(0, tk.END)
 
         entry -= 1
+
+        if self.parent.parent.game_vals.attemps_left == 0:
+            messagebox.showwarning(message= "You are out of your tries")
+        
+
+        self.parent.parent.game_vals.attemps_left -= 1
         if entry == self.parent.parent.game_vals.number:
             messagebox.showinfo(title= "Success",
                                 message= ("You have guessed correctly, it only took "
-"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left} tries!"))
+f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left} tries!"))
             return
+
+        self.guess_entrybox.delete(0, tk.END)
         messagebox.showwarning(title= "Incorrect",
                                message= "Your guess is incorrect")
         

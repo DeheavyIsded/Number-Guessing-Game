@@ -18,21 +18,21 @@ class RandomNumber:
         self._attempts_left: int= self._trials
         self._number: int= random.randint(low= 10, high= 100) # Generate a random 2 digit number
 
-        @property
-        def trials(self) -> int:
-            """How many trials will the user have in the beginning"""
-            return self._trials
+    @property
+    def trials(self) -> int:
+        """How many trials will the user have in the beginning"""
+        return self._trials
 
-        @property
-        def attempts_left(self) -> int:
-            """How many attempts left"""
-            return self._attempts_left
+    @property
+    def attempts_left(self) -> int:
+        """How many attempts left"""
+        return self._attempts_left
 
-        @attempts_left.setter
-        def attempts_left(self, new_amount):
-            self._attempts_left = new_amount
+    @attempts_left.setter
+    def attempts_left(self, new_amount):
+        self._attempts_left = new_amount
 
-        @property
-        def number(self) -> int:
-            """The number to guess"""
-            return self._number
+    @property
+    def number(self) -> int:
+        """The number to guess"""
+        return self._number
