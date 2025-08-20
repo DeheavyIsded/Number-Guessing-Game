@@ -4,7 +4,7 @@ import tkinter as tk
 
 class AttemptsLeft:
     """A displayer to show how many attempts are left"""
-    def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
+    def __init__(self, parent): # For root, game_vals and prp, you need self.parent.parent
         self.parent = parent
 
         self.attempt_screen = tk.Label(master= self.parent.parent.root,
