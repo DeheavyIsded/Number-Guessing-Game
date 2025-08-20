@@ -69,8 +69,8 @@ f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_l
             0: self.parent.parent.hints.no_hints,
             1: self.parent.parent.hints.greater_or_lesser,
             2: self.parent.parent.hints.temperature,
-            3: self.parent.parent.hints.no_hints,
-            4: self.parent.parent.hints.no_hints,
+            3: self.parent.parent.hints.freemium_info,
+            4: self.parent.parent.hints.premium_info
             }
 
         proper_hints[self.parent.parent.prp.hints_chosen_level](self.entry)

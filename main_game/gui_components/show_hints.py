@@ -49,33 +49,71 @@ class ShowHints:
                 self.set_hint(new_text= text, new_color= color)
                 break
 
-    def freemium_info(self, _) -> None:
+    def freemium_info(self, guess) -> None:
         """Useful information"""
+        number: int= self.parent.parent.game_vals.number
 
-    def premium_info(self, _) -> None:
+        situations: list[bool]= [
+# All possible stats about the guess and the number
+ (number % 2 == 1), # is odd
+ (number % 2 == 0), # is even
+ (str(guess)[0] == str(number)[0]), # Tens are equal
+ (str(guess)[1] == str(number)[1]), # Ones are equal
+ (isinstance(np.sqrt(number), int)), # is a perfect square
+ (all(number % num != 0 for num in np.arange(2, number//2 + 1))), # is a prime number
+ (number % 10 == 0), # can divide by ten
+ (np.square(number) == guess), # is the square of your guess
+ (np.square(guess) == number), # is the square root of your guess
+ (np.sum(int(digit) for digit in str(number)) == np.sum(int(digit) for digit in str(guess))),
+ (int(str(number))[0] == int(str(number))[0] + 1), # 12, 23, 34, 45, 56, 67, 78, 89
+ (str(number[0]) == str(number[1])), # Digits are equal
+ (str(number) == str(number)[::-1]) # Palindromy number
+        ]
+
+        all_info: dict[bool, str]= {
+            situations[0]: "This is an odd number",
+            situations[1]: "This is an even number",
+            situations[2]: f"The tens of this number and {guess} are equal",
+            situations[3]: f"The ones of this number and {guess} are equal",
+            situations[4]: "This number is a perfect square",
+            situations[5]: "This is a prime number",
+            situations[6]: "This number can divide by ten",
+            situations[7]: "This number is the square root of {guess}",
+            situations[8]: "This number is the square of {guess}",
+            situations[9]: "The sum of this numbers digits equal to the sum of {guess}' digits",
+            situations[10]:"This number has consecutive digits",
+            situations[11]:"The digits of this number are the same",
+            situations[12]:"This number is a palindrome",
+        }
+
+        chosen_info: list[str]= []
+
+    def premium_info(self, guess) -> None:
         """Less useful information"""
         hint_text: list[str]=[
             "This number might have two digits",
             "This number could be a positive number",
             "Your guess is incorrect",
             "This number is not equal to your guess",
-            "You can actually write this number\nif you have a pen", # 5
+            "You can actually write this number\nif you have a pen",
             "You can see this number online if you Google it",
             "This number contains no letters",
-            "",
-            "",
-            "", # 10
-            "",
-            "",
-            "",
-            "",
-            "", # 15
-            "",
-            "",
-            "",
-            "",
-            "", # 20
+            "Name of the first digit of this number\nStarts with a number in the alphabet",
+            "The decimal digit of this number is not zero",
+            "Your guess is closer to this number than 1.000.000",
+           f"Stuck? Try {self.parent.parent.game_vals.number}",
+            "Try using the numpad at the right side of your keyboard",
+           f"This number does not equal to {guess}",
+           f"Here is a random number: ({self.parent.parent.game_vals.number-guess})",
+           f"{guess} is a brilliant choice,\nit shows your excellence in guessing incorrectly",
+            "Division of this number and 100 would never equal to 1",
+            "You should try a different number",
+            "There are 89 different possible options in total",
+           f"With {guess} checked, {89-self.parent.parent.game_vals.attempts_left} options left",
+            "Did you try 10 and 99 yet?"
         ]
+
+        self.set_hint(new_text=np.random.choice(hint_text))
 
     def set_hint(self, new_text: str, new_color: str=None) -> None:
         """Set the new text for the hints display"""
