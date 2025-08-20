@@ -3,15 +3,22 @@
 from numpy import random
 
 class RandomNumber:
-    """Random number generation module"""
+    """
+    Random number generation module
+    
+    Properties:
+        -trials: int
+        -attempts_left: int (with setter)
+        -number: int
+    """
     
     def __init__(self, parent):
         self.parent = parent
 
         self.trial_levels: dict[str, int]= {
-            "Easy": 10,
-            "Medium": 7,
-            "Hard": 5
+            "Easy": 20,
+            "Medium": 15,
+            "Hard": 10
             }
 
         self._trials: int= self.trial_levels[self.parent.prp.difficulty]

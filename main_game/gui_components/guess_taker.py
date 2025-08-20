@@ -6,7 +6,7 @@ from tkinter import messagebox
 class GuessTaker:
     """An entrybox to take user's guess"""
 
-    def __init__(self, parent):
+    def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
 
         self.guess_entrybox = tk.Entry(self.parent.parent.root)
@@ -18,7 +18,8 @@ class GuessTaker:
         """After pressed Enter, this method checks the answer"""
         try:
             entry = int(self.guess_entrybox.get())
-            entry += 1
+            entry += 1 
+            # Try a basic operation, if entry is not an int then this with throw an Error
 
         except TypeError:
             messagebox.showerror(title= "Invalid Entry",
@@ -26,20 +27,37 @@ class GuessTaker:
 
             self.guess_entrybox.delete(0, tk.END)
 
-        entry -= 1
+        entry -= 1 # Take that 1 back now, int-test has been passed
 
-        if self.parent.parent.game_vals.attemps_left == 0:
-            messagebox.showwarning(message= "You are out of your tries")
-        
+        if len(entry) != 2:
+            messagebox.showwarning(
+                title= "Wrong type of number",
+                message= "The number to guess is a 2 digit positive natural number"
+            )
+            return
 
-        self.parent.parent.game_vals.attemps_left -= 1
+        # Update the number of trials left, can't be less than zero
+        self.parent.parent.game_vals.attempts_left = max(
+            0, (self.parent.parent.game_vals.attempts_left - 1)
+            )
+
+        # Now update the text that shows the number of trials left
+        self.parent.attempts.attempt_screen.config(
+            text= f"Tries: {self.parent.parent.game_vals.attempts_left}"
+            )
+
+        # If the guess is correct
         if entry == self.parent.parent.game_vals.number:
             messagebox.showinfo(title= "Success",
                                 message= ("You have guessed correctly, it only took "
 f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left} tries!"))
             return
 
+        # If the guess is incorrect
         self.guess_entrybox.delete(0, tk.END)
         messagebox.showwarning(title= "Incorrect",
                                message= "Your guess is incorrect")
-        
+
+        # If player is out of tries
+        if self.parent.parent.game_vals.attempts_left == 0:
+            messagebox.showwarning(message= "You are out of your tries")
