@@ -51,6 +51,8 @@ class GuessTaker:
             messagebox.showinfo(title= "Success",
                                 message= ("You have guessed correctly, it only took "
 f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left} tries!"))
+            self.guess_entrybox.config(state="readonly")
+            self.parent.parent.root.configure(background= "#00ff00")
             return
 
         # If the guess is incorrect
@@ -66,11 +68,11 @@ f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_l
     def display_hints(self):
         """Show hints to help the player"""
         proper_hints: dict= {
-            0: self.parent.parent.hints.no_hints,
-            1: self.parent.parent.hints.greater_or_lesser,
-            2: self.parent.parent.hints.temperature,
-            3: self.parent.parent.hints.freemium_info,
-            4: self.parent.parent.hints.premium_info
+            0: self.parent.hints.no_hints,
+            1: self.parent.hints.greater_or_lesser,
+            2: self.parent.hints.temperature,
+            3: self.parent.hints.freemium_info,
+            4: self.parent.hints.premium_info
             }
 
         proper_hints[self.parent.parent.prp.hints_chosen_level](self.entry)

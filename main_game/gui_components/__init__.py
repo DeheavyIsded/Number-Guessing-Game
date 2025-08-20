@@ -11,9 +11,6 @@ class NGGui:
 
         self.parent = parent
 
-        self.test_title = tk.Label(self.parent.root, text= "  GAME.  ", font= ("TF2 Build", 20))
-        self.test_title.place(x= 450, y= 20)
-
         self.hints = ShowHints(self)
         self.attempts = AttemptsLeft(self)
         GuessTaker(self)

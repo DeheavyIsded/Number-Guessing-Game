@@ -8,10 +8,10 @@ class ShowHints:
 
     def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
-        self.hints = tk.Label(master= self.parent.parent.root,
+        self.hints_label = tk.Label(master= self.parent.parent.root,
                               text= "",
-                              bg= "black",
                               fg= "white")
+        self.hints_label.place(x= 400, y= 200)
 
     def no_hints(self, _) -> None:
         """No hints chosen"""
@@ -61,32 +61,37 @@ class ShowHints:
  (str(guess)[1] == str(number)[1]), # Ones are equal
  (isinstance(np.sqrt(number), int)), # is a perfect square
  (all(number % num != 0 for num in np.arange(2, number//2 + 1))), # is a prime number
- (number % 10 == 0), # can divide by ten
+ (number % 10 == 0), # divisible by ten
  (np.square(number) == guess), # is the square of your guess
  (np.square(guess) == number), # is the square root of your guess
  (np.sum(int(digit) for digit in str(number)) == np.sum(int(digit) for digit in str(guess))),
- (int(str(number))[0] == int(str(number))[0] + 1), # 12, 23, 34, 45, 56, 67, 78, 89
- (str(number[0]) == str(number[1])), # Digits are equal
- (str(number) == str(number)[::-1]) # Palindromy number
+ (int(str(number)[0]) == int(str(number)[1]) + 1),
+ (str(number)[0] == str(number)[1]), # Digits are equal
+ (str(number) == str(number)[::-1]) # Palindrome
         ]
 
-        all_info: dict[bool, str]= {
-            situations[0]: "This is an odd number",
-            situations[1]: "This is an even number",
-            situations[2]: f"The tens of this number and {guess} are equal",
-            situations[3]: f"The ones of this number and {guess} are equal",
-            situations[4]: "This number is a perfect square",
-            situations[5]: "This is a prime number",
-            situations[6]: "This number can divide by ten",
-            situations[7]: "This number is the square root of {guess}",
-            situations[8]: "This number is the square of {guess}",
-            situations[9]: "The sum of this numbers digits equal to the sum of {guess}' digits",
-            situations[10]:"This number has consecutive digits",
-            situations[11]:"The digits of this number are the same",
-            situations[12]:"This number is a palindrome",
-        }
+        all_info: list[tuple[bool, str]]= [
+            (situations [0], "This is an odd number"),
+            (situations [1], "This is an even number"),
+            (situations [2],f"The tens of this number and {guess} are equal"),
+            (situations [3],f"The ones of this number and {guess} are equal"),
+            (situations [4], "This number is a perfect square"),
+            (situations [5], "This is a prime number"),
+            (situations [6], "This number can divide by ten"),
+            (situations [7],f"This number is the square root of {guess}"),
+            (situations [8],f"This number is the square of {guess}"),
+            (situations [9],f"The sum of this numbers digits equal to the sum of {guess}' digits"),
+            (situations[10], "This number has consecutive digits"),
+            (situations[11], "The digits of this number are the same"),
+            (situations[12], "This number is a palindrome"),
+        ]
 
         chosen_info: list[str]= []
+        for situation, text in all_info:
+            if situation:
+                chosen_info.append(text)
+
+        self.set_hint(new_text= np.random.choice(chosen_info))
 
     def premium_info(self, guess) -> None:
         """Less useful information"""
@@ -118,7 +123,7 @@ class ShowHints:
     def set_hint(self, new_text: str, new_color: str=None) -> None:
         """Set the new text for the hints display"""
         if not new_color:
-            self.hints.config(text=new_text, fg="white")
+            self.hints_label.config(text=new_text, bg="black", fg="white")
             return
 
-        self.hints.config(text=new_text, fg=new_color)
+        self.hints_label.config(text=new_text, bg="black", fg=new_color)
