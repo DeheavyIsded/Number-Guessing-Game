@@ -123,7 +123,7 @@ class ShowHints:
     def set_hint(self, new_text: str, new_color: str=None) -> None:
         """Set the new text for the hints display"""
         if not new_color:
-            self.hints_label.config(text=new_text, bg="black", fg="white")
+            self.hints_label.config(text=new_text, bg=self.parent.parent.bg, fg="white")
             return
 
-        self.hints_label.config(text=new_text, bg="black", fg=new_color)
+        self.hints_label.config(text=new_text, bg=self.parent.parent.bg, fg=new_color)

@@ -23,6 +23,9 @@ class NumberGuessing:
         self.root.iconphoto(False,
                             tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png")))
 
+        self.bg= "gray20"
+        self.root.configure(background= self.bg)
+
         self.game_vals = RandomNumber(self)
         NGGui(self)
 
