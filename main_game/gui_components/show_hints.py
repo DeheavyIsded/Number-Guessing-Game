@@ -22,7 +22,7 @@ class ShowHints:
         hint_text: dict[bool, str]= {
             # True: guess > number, False: guess < number
             False: "The number is higher than your guess",
-            True: "The number is lower than your guess"
+             True: "The number is lower than your guess"
             }
 
         self.set_hint(new_text= hint_text[(guess > self.parent.parent.game_vals.number)])

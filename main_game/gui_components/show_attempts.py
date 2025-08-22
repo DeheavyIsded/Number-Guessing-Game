@@ -8,8 +8,8 @@ class AttemptsLeft:
         self.parent = parent
 
         self.attempt_screen = tk.Label(master= self.parent.parent.root,
-                                    text= f"Tries: {self.parent.parent.game_vals.attempts_left}",
-                                    font= ("TF2 Build", 15),
-                                    bg= self.parent.parent.bg,
-                                    fg= "white")
+                                      text= f"Tries: {self.parent.parent.game_vals.attempts_left}",
+                                      font= ("TF2 Build", 15),
+                                      bg= self.parent.parent.bg,
+                                      fg= "white")
         self.attempt_screen.place(x= 400, y= 160)

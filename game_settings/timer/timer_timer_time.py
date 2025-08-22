@@ -96,6 +96,7 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
     def refresh_custom(self):
         """Delete the text"""
         self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
+        self.parent.parent.parent.prp.timer_custom_time = None
 
         self.help.button_placement()
         self.timer_custom_entrybox.place_forget()

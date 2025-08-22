@@ -56,11 +56,18 @@ class GuessTaker:
 
         # If the guess is correct
         if self.entry == self.parent.parent.game_vals.number:
-            messagebox.showinfo(title= "Success",
-                                message= ("You have guessed correctly, it only took "
-f"{self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left} tries!"))
+
+            self.parent.timers.stop_timer
+
+            tries= self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left
+            messagebox.showinfo(
+                title= "Success",
+                message= f"You have guessed correctly, it only took {tries} tries!"
+            )
+
             self.guess_entrybox.config(state="readonly")
             self.parent.parent.root.configure(background= "#00ff00")
+
             tk.Label(master= self.parent.parent.root,
                      text= (f"{self.parent.parent.game_vals.number}!"),
                      font= ("TF2 Build", 25),
