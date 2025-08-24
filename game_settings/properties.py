@@ -60,56 +60,56 @@ class Properties:
 
     # >>> Getters
     @property
-    def difficulty(self) -> tkinter.StringVar:
+    def difficulty(self) -> str:
         """Getter for Difficulty"""
         return self.difficulty_raw.get()
 
     @property
-    def timer_style(self) -> tkinter.StringVar:
+    def timer_style(self) -> str:
         """Getter for Timer Style"""
         return self.timer_style_raw.get()
 
     @property
-    def timer_chosen_time(self) -> tkinter.IntVar:
+    def timer_chosen_time(self) -> int:
         """Getter for Chosen Time"""
         return self.timer_chosen_time_raw.get()
 
     @property
-    def hints_chosen_level(self) -> tkinter.IntVar:
+    def hints_chosen_level(self) -> int:
         """Getter for Hint Level"""
         return self.hints_chosen_level_raw.get()
 
     @property
-    def timer_enabled(self) -> tkinter.BooleanVar:
+    def timer_enabled(self) -> bool:
         """Getter for Timer Enabled"""
         return self.timer_enabled_raw.get()
 
     @property
-    def timer_custom_time(self) -> tkinter.IntVar:
+    def timer_custom_time(self) -> int | None:
         """Getter for Custom Time"""
-        return self.timer_custom_time_raw
+        return self.timer_custom_time_raw.get() # FIXME: _tkinter.TclError
 
     # >>> Setters
     @difficulty.setter
-    def difficulty(self, new_difficulty):
+    def difficulty(self, new_difficulty: str):
         self.difficulty_raw.set(new_difficulty)
 
     @timer_style.setter
-    def timer_style(self, new_timer_style):
+    def timer_style(self, new_timer_style: str):
         self.timer_style_raw.set(new_timer_style)
 
     @timer_chosen_time.setter
-    def timer_chosen_time(self, new_timer_chosen_time):
+    def timer_chosen_time(self, new_timer_chosen_time: int):
         self.timer_chosen_time_raw.set(new_timer_chosen_time)
 
     @hints_chosen_level.setter
-    def hints_chosen_level(self, new_level):
+    def hints_chosen_level(self, new_level: int):
         self.hints_chosen_level_raw.set(new_level)
 
     @timer_enabled.setter
-    def timer_enabled(self, new_status):
+    def timer_enabled(self, new_status: bool):
         self.timer_enabled_raw.set(new_status)
 
     @timer_custom_time.setter
-    def timer_custom_time(self, new_time):
+    def timer_custom_time(self, new_time: int | None):
         self.timer_custom_time_raw.set(new_time)
