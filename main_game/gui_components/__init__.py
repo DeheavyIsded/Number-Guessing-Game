@@ -1,6 +1,5 @@
 """GUI of the Number Guessing Game"""
 
-import tkinter as tk
 from .guess_taker import GuessTaker
 from .show_attempts import AttemptsLeft
 from .show_hints import ShowHints

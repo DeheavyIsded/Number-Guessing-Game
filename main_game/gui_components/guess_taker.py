@@ -36,13 +36,12 @@ class GuessTaker:
             )
             return
 
-        if str(self.entry) in self.parent.misguess.misguesses:
+        if str(self.entry).strip() in self.parent.misguess.misguesses:
             messagebox.showwarning(
                 title= "You already tried that",
                 message= "You have tried that number before"
             )
             return
-            
 
         # Update the number of trials left, can't be less than zero
         self.parent.parent.game_vals.attempts_left = max(
@@ -57,39 +56,56 @@ class GuessTaker:
         # If the guess is correct
         if self.entry == self.parent.parent.game_vals.number:
 
-            self.parent.timers.stop_timer
-
             tries= self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left
+
+            self.parent.timers.stop() # Stop the timers
             messagebox.showinfo(
                 title= "Success",
                 message= f"You have guessed correctly, it only took {tries} tries!"
             )
 
+            # Lock the Entrybox
             self.guess_entrybox.config(state="readonly")
+
+            # Show green color -temporary-
             self.parent.parent.root.configure(background= "#00ff00")
 
+            # Show a label to display the correct number
             tk.Label(master= self.parent.parent.root,
                      text= (f"{self.parent.parent.game_vals.number}!"),
-                     font= ("TF2 Build", 25),
+                     font= ("TF2 Build",25),
                      bg= self.parent.parent.bg,
                      fg= "#00ffff",
-            ).place(x= 400, y= 50)
+            ).place(x=400,y=50)
+
+
             return
 
         # If the guess is incorrect
         self.guess_entrybox.delete(0, tk.END)
-        messagebox.showwarning(title= "Incorrect",
-                               message= "Your guess is incorrect")
+        messagebox.showwarning(title="Incorrect",message="Your guess is incorrect")
+
         self.parent.misguess.add_guess(new_misguess=self.entry)
         self.display_hints()
         self.parent.timers.start()
 
         # If player is out of tries
         if self.parent.parent.game_vals.attempts_left == 0:
+
+            # Stop the timers
+            self.parent.timers.stop()
             messagebox.showwarning(message= "You are out of your tries")
+
             self.guess_entrybox.config(state="readonly")
             self.parent.parent.root.configure(background= "#ff0000")
-            
+
+            # Show a label to display the correct number
+            tk.Label(master=self.parent.parent.root,
+                     text=(f"{self.parent.parent.game_vals.number}!"),
+                     font=("TF2 Build",25),
+                     bg=self.parent.parent.bg,
+                     fg="#00aaaa",
+            ).place(x=400,y=50)
 
     def display_hints(self):
         """Show hints to help the player"""
