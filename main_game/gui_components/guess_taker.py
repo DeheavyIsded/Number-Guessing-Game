@@ -82,6 +82,7 @@ class GuessTaker:
                                message= "Your guess is incorrect")
         self.parent.misguess.add_guess(new_misguess=self.entry)
         self.display_hints()
+        self.parent.timers.start()
 
         # If player is out of tries
         if self.parent.parent.game_vals.attempts_left == 0:

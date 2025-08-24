@@ -49,6 +49,7 @@ class TimerManager:
 
     def __init__(self, parent):
         self.parent = parent
+        self.timer_on: bool= False
         self.stop_timer: bool= False
 
         if self.parent.parent.prp.timer_custom_time:
@@ -79,10 +80,11 @@ class TimerManager:
 
     def start(self) -> None:
         """Start the timer"""
-        if not self.parent.parent.prp.timer_enabled: # Don't do anything if timer is disabled
+        if not self.parent.parent.prp.timer_enabled or self.timer_on:
             return
 
         self.timer.place(x= 650, y= 50)
+        self.timer_on = True
 
         if self.parent.parent.prp.timer_style == "timer":
             # Initialize Timer timer
