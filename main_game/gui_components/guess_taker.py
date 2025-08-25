@@ -18,25 +18,24 @@ class GuessTaker:
         """After pressed Enter, this method checks the answer"""
         try:
             self.entry = int(self.guess_entrybox.get())
-            self.entry += 1 
             # Try a basic operation, if self.entry is not an int then this will throw an Error
 
-        except TypeError:
-            messagebox.showerror(title= "Invalid Entry",
-                                 message= "You have to enter normal, integer numbers here.")
+        except ValueError:
+            messagebox.showerror(
+                title= "Invalid Entry",
+                message= "You have to enter normal, integer numbers here."
+            )
 
             self.guess_entrybox.delete(0, tk.END)
 
-        self.entry -= 1 # Take that 1 back now, int-test has been passed
-
-        if len(str(self.entry)) != 2:
+        if self.entry < 10 or self.entry > 99:
             messagebox.showwarning(
                 title= "Wrong type of number",
-                message= "The number to guess is a 2 digit positive natural number"
+                message= "The number to guess is a 2-digit natural number"
             )
             return
 
-        if str(self.entry).strip() in self.parent.misguess.misguesses:
+        if self.entry in self.parent.misguess.misguesses:
             messagebox.showwarning(
                 title= "You already tried that",
                 message= "You have tried that number before"
@@ -56,29 +55,13 @@ class GuessTaker:
         # If the guess is correct
         if self.entry == self.parent.parent.game_vals.number:
 
-            tries= self.parent.parent.game_vals.trials - self.parent.parent.game_vals.attempts_left
+            self.parent.timers.stop()
 
-            self.parent.timers.stop() # Stop the timers
-            messagebox.showinfo(
-                title= "Success",
-                message= f"You have guessed correctly, it only took {tries} tries!"
+            tries= self.parent.parent.game_vals.trials-self.parent.parent.game_vals.attempts_left
+            self.end_game(
+                message=f"You have guessed correctly, it only took {tries} tries!",
+                color="#00ff00"
             )
-
-            # Lock the Entrybox
-            self.guess_entrybox.config(state="readonly")
-
-            # Show green color -temporary-
-            self.parent.parent.root.configure(background= "#00ff00")
-
-            # Show a label to display the correct number
-            tk.Label(master= self.parent.parent.root,
-                     text= (f"{self.parent.parent.game_vals.number}!"),
-                     font= ("TF2 Build",25),
-                     bg= self.parent.parent.bg,
-                     fg= "#00ffff",
-            ).place(x=400,y=50)
-
-
             return
 
         # If the guess is incorrect
@@ -91,21 +74,28 @@ class GuessTaker:
 
         # If player is out of tries
         if self.parent.parent.game_vals.attempts_left == 0:
+            self.end_game(
+                message="You are out of your tries",
+                color="#ff0000"
+            )
 
-            # Stop the timers
-            self.parent.timers.stop()
-            messagebox.showwarning(message= "You are out of your tries")
+    def end_game(self, message, color):
+        """End the game"""
+        # Stop the timers
+        self.parent.timers.stop()
+        messagebox.showwarning(message=message)
 
-            self.guess_entrybox.config(state="readonly")
-            self.parent.parent.root.configure(background= "#ff0000")
+        self.guess_entrybox.config(state="readonly")
+        self.parent.parent.root.configure(background=color)
 
-            # Show a label to display the correct number
-            tk.Label(master=self.parent.parent.root,
-                     text=(f"{self.parent.parent.game_vals.number}!"),
-                     font=("TF2 Build",25),
-                     bg=self.parent.parent.bg,
-                     fg="#00aaaa",
-            ).place(x=400,y=50)
+        # Show a label to display the correct number
+        tk.Label(
+            master=self.parent.parent.root,
+            text=(f"{self.parent.parent.game_vals.number}!"),
+            font=("TF2 Build",25),
+            bg=self.parent.parent.bg,
+            fg="#00aaaa",
+        ).place(x=400,y=50)
 
     def display_hints(self):
         """Show hints to help the player"""

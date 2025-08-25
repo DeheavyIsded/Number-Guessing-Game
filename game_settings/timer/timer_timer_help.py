@@ -29,7 +29,7 @@ class HelpMe:
         self.help_me.place(x= 262, y= 510)
 
     def pop_it_up(self):
-        """Pop-up the big guns!"""
+        """Pop-up the time converter"""
         win = tk.Toplevel(self.parent.parent.parent.root)
         win.geometry("300x175")
         win.title("Time Converter")
@@ -54,15 +54,18 @@ class HelpMe:
         i_got_you_label.grid(row=6, column=0, columnspan=2, padx= (10, 0))
 
         def vanish_label():
+            """Hide the i_got_you_label text by using colors"""
             i_got_you_label.config(fg= "#c0c0c0")
 
         def handler(_):
+            """A function to run this function"""
             vanish_label()
 
         minute_entry.bind("<Button-1>", handler)
         second_entry.bind("<Button-1>", handler)
 
         def calculate_total():
+            """Calculate the total time in seconds"""
             try:
                 minutes = int(minute_entry.get() or 0)
                 seconds = int(second_entry.get() or 0)
@@ -74,8 +77,20 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, "120")
 
+                elif (minutes < 0 and seconds < 0):
+                    result_label.config(
+                        text= "Negative numbers are not tolerated."
+                    )
+                    vanish_label()
+                    self.parent.timer_custom_entrybox.delete(0, tk.END)
+                    self.parent.timer_custom_entrybox.insert(0, str(seconds))
+                    
+
                 elif (minutes == 0 and seconds > 0):
-                    result_label.config(text= f"{seconds} seconds is {total} seconds, not duh!")
+                    result_label.config(
+                        text= f"{seconds} seconds is {total} seconds\n"
+                        "Wasn't that a little obvious?"
+                    )
                     vanish_label()
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, str(seconds))
@@ -83,17 +98,18 @@ class HelpMe:
                 elif total < 3600:
                     result_label.config(text= f"Total: {total} seconds")
                     i_got_you_label.config(
-                        text= "Don't worry, I've automatically entered this number\n"
-                              "you may close this window now.",
-                        foreground= "black")
+                        foreground= "black"
+                    )
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, str(total))
 
                 else:
-                    result_label.config(text= "Man, just turn off the timer")
+                    result_label.config(text= "More than an hour? Are you testing the boundaries?")
                     vanish_label()
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
-                    self.parent.timer_custom_entrybox.insert(0, "120")
+                    self.parent.timer_custom_entrybox.insert(0, "3600")
+
+                self.parent.parent.parent.parent.upd.update_chosen_time(int(total))
 
             except ValueError:
                 messagebox.showerror("Error", "You should enter valid numbers")

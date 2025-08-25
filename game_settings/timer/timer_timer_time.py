@@ -48,44 +48,49 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
 
     def get_input(self, _) -> None:
         """Validate the user's input"""
-        user_input: str= self.timer_custom_entrybox.get()
         new_input: int
         try:
-            new_input = abs(int(user_input))
+            new_input = abs(int(self.timer_custom_entrybox.get()))
             self.timer_custom_entrybox.config(state= "readonly")
             self.parent.parent.parent.prp.timer_chosen_time = new_input
-            self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
+            self.parent.parent.parent.upd.update_chosen_time(int(self.timer_custom_entrybox.get()))
 
         except ValueError:
             self.timer_custom_entrybox.delete(0, tk.END)
-            messagebox.showerror(title= "Invalid Number",
-                               message= "Try entering a normal-integer number.\n Please.")
+            messagebox.showerror(
+                title= "Invalid Number",
+                message= "Try entering a normal-integer number.\n Please."
+            )
 
     def create_radio_buttons(self, text: str, value: int) -> tk.Radiobutton:
         """Create the radio button"""
-        return tk.Radiobutton(self.parent.parent.root,
-                              text= text,
-                              font= ("Arial", 12),
-                              variable= self.parent.parent.parent.prp.timer_chosen_time_raw,
-                              value= value,
-                              bg= "gray20",
-                              fg= "white",
-                              activebackground= "gray20",
-                              activeforeground= "white",
-                              selectcolor= "black",
-                              command= self.refresh_custom)
+        return tk.Radiobutton(
+            self.parent.parent.root,
+            text= text,
+            font= ("Arial", 12),
+            variable= self.parent.parent.parent.prp.timer_chosen_time_raw,
+            value= value,
+            bg= "gray20",
+            fg= "white",
+            activebackground= "gray20",
+            activeforeground= "white",
+            selectcolor= "black",
+            command= self.refresh_custom
+        )
 
     def timer_checked(self, checked: bool) -> None:
         """Disappear if Timer checkbox is unchecked"""
         self.parent.parent.parent.upd.update_timer_style()
         self.parent.parent.parent.upd.update_chosen_time()
 
-        our_widgets: list[tk.Widget]= [self.timer_timer_time_title,
-                                       self.timer_time_40,
-                                       self.timer_time_60,
-                                       self.timer_time_100,
-                                       self.timer_time_custom,
-                                       self.timer_custom_entrybox]
+        our_widgets: list[tk.Widget]= [
+            self.timer_timer_time_title,
+            self.timer_time_40,
+            self.timer_time_60,
+            self.timer_time_100,
+            self.timer_time_custom,
+            self.timer_custom_entrybox
+        ]
 
         self.help.button_placement()
 
@@ -93,9 +98,9 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
             for widget in our_widgets:
                 widget.place_forget()
 
-    def refresh_custom(self):
+    def refresh_custom(self) -> None:
         """Delete the text"""
-        self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
+        self.parent.parent.parent.upd.update_chosen_time()
         self.parent.parent.parent.prp.timer_custom_time = None
 
         self.help.button_placement()
@@ -114,20 +119,22 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
         self.parent.parent.parent.upd.update_timer_style()
         self.parent.parent.parent.upd.update_chosen_time()
 
-        submenu_items: list[tk.Widget]= [self.timer_timer_time_title,
-                                         self.timer_time_40,
-                                         self.timer_time_60,
-                                         self.timer_time_100,
-                                         self.timer_time_custom]
+        submenu_items: list[tk.Widget]= [
+            self.timer_timer_time_title,
+            self.timer_time_40,
+            self.timer_time_60,
+            self.timer_time_100,
+            self.timer_time_custom
+        ]
 
-        submenu_item_coords: dict[tk.Widget, tuple[int, int, int]]= {
+        # These are important coordinates. So, like, don't change it or something
+        submenu_item_coords: dict[tk.Widget, tuple[int, int]]= {
             self.timer_timer_time_title:(50, 425),
-            self.timer_time_40: (70, 450),
-            self.timer_time_60: (70, 475),
-            self.timer_time_100: (70, 500),
-            self.timer_time_custom: (70, 525)
+                     self.timer_time_40:(70, 450),
+                     self.timer_time_60:(70, 475),
+                    self.timer_time_100:(70, 500),
+                 self.timer_time_custom:(70, 525)
             }
-
 
         # If Chronometer is chosen
         if self.parent.parent.parent.prp.timer_style != "timer":
@@ -138,16 +145,18 @@ variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of you
             return
 
         # If Timer is chosen
+        self.parent.parent.parent.prp.timer_custom_time = 0
         for submenu_item in submenu_items:
             item_x, item_y = submenu_item_coords[submenu_item]
             submenu_item.place(x= item_x, y= item_y)
 
 
-    def summon_entrybox(self):
+    def summon_entrybox(self) -> None:
         """As the name suggests"""
-        self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
 
+        self.parent.parent.parent.upd.update_chosen_time(self.timer_custom_entrybox.get())
         self.help.button_placement()
+
         if self.parent.parent.parent.prp.timer_chosen_time != -1:
             self.timer_custom_entrybox.place_forget()
             self.help.button_placement()

@@ -85,7 +85,7 @@ class Properties:
         return self.timer_enabled_raw.get()
 
     @property
-    def timer_custom_time(self) -> int | None:
+    def timer_custom_time(self) -> int:
         """Getter for Custom Time"""
         return self.timer_custom_time_raw.get() # FIXME: _tkinter.TclError
 
@@ -111,5 +111,5 @@ class Properties:
         self.timer_enabled_raw.set(new_status)
 
     @timer_custom_time.setter
-    def timer_custom_time(self, new_time: int | None):
+    def timer_custom_time(self, new_time: int):
         self.timer_custom_time_raw.set(new_time)

@@ -57,19 +57,20 @@ class Updater:
     def update_chosen_time(self, custom_time: int | None=None) -> None:
         """Update the chosen timer to the chosen one"""
 
-        if not custom_time: # FIXME: This line is a mass of mess. Fix it!
-            if custom_time == -1:
+        if not custom_time:
+            if self.prp.timer_chosen_time == -1:
                 self.screen.chosen_time_display.config(text= "Time: Custom")
-    
-            elif self.prp.timer_chosen_time != -1:
-                self.screen.chosen_time_display.config(
-                    text= f"Time: {self.prp.timer_chosen_time} seconds")
 
-        elif custom_time != -1:
+            else:
+                self.screen.chosen_time_display.config(
+                    text= f"Time: {self.prp.timer_chosen_time} seconds"
+                )
+
+        elif custom_time:
             self.screen.chosen_time_display.config(text= f"Time: {custom_time} seconds")
 
         else:
-            self.screen.chosen_time_display.config(text= "Time: Not chosen yet")
+            self.screen.chosen_time_display.config(text= "Time: Not chosen")
 
     def update_general(self) -> None:
         """Run every updater"""
