@@ -77,17 +77,17 @@ class TimerManager:
         else:
             self.time_raw = self.parent.parent.prp.timer_chosen_time
 
-        self.timer = tk.Label(
+        self.timer = tk.Label( # !!! Widget vals
             master= self.parent.parent.root,
-            text= "",
+            text= "No Pressure",
             font= ("Consolas", 15),
             bg= self.parent.parent.bg,
-            fg= "white"
+            fg= "red"
         )
 
     def stop_timer(self):
         """Give an order to stop the timer"""
-        self.stop_the_timer = True # FIXME: Chronometer resets when stopped
+        self.stop_the_timer = True
 
     def convert_time(self, raw) -> str:
         """Turn the seconds into minutes"""
@@ -102,7 +102,7 @@ class TimerManager:
         if not self.parent.parent.prp.timer_enabled or self.timer_on:
             return
 
-        self.timer.place(x= 650, y= 50)
+        self.timer.place(x=190, y=250) # !!! Widget placement
         self.timer_on = True
 
         if self.parent.parent.prp.timer_style == "timer":
@@ -118,4 +118,8 @@ class TimerManager:
 
     def stop(self) -> None:
         """Stop the timers"""
-        self.picked.stop()
+        try:
+            self.picked.stop()
+
+        except AttributeError:
+            pass

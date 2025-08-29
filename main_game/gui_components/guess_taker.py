@@ -10,7 +10,7 @@ class GuessTaker:
         self.parent = parent
 
         self.guess_entrybox = tk.Entry(self.parent.parent.root)
-        self.guess_entrybox.place(x= 400, y= 100)
+        self.guess_entrybox.place(x= 150, y= 100)
 
         self.guess_entrybox.bind("<Return>", self.check_entry)
 
@@ -27,6 +27,7 @@ class GuessTaker:
             )
 
             self.guess_entrybox.delete(0, tk.END)
+            return
 
         if self.entry < 10 or self.entry > 99:
             messagebox.showwarning(
@@ -68,16 +69,17 @@ class GuessTaker:
         self.guess_entrybox.delete(0, tk.END)
         messagebox.showwarning(title="Incorrect",message="Your guess is incorrect")
 
-        self.parent.misguess.add_guess(new_misguess=self.entry)
-        self.display_hints()
-        self.parent.timers.start()
-
         # If player is out of tries
         if self.parent.parent.game_vals.attempts_left == 0:
             self.end_game(
                 message="You are out of your tries",
                 color="#ff0000"
             )
+            return
+
+        self.parent.misguess.add_guess(new_misguess=self.entry)
+        self.display_hints()
+        self.parent.timers.start()
 
     def end_game(self, message, color):
         """End the game"""
@@ -86,16 +88,29 @@ class GuessTaker:
         messagebox.showwarning(message=message)
 
         self.guess_entrybox.config(state="readonly")
+
+        # Change the GUI colors
         self.parent.parent.root.configure(background=color)
+        self.parent.misguess.misguess_list.config(bg=color)
+        self.parent.attempts.attempt_screen.config(bg=color)
+        self.parent.timers.timer.config(bg=color)
+
+        # Hide some of them
+        self.parent.hints.hints_label.place_forget()
+
+        background: dict[str, str]= {
+            "#00ff00":"#ff0000",
+            "#ff0000":"#00ff00"
+}
 
         # Show a label to display the correct number
         tk.Label(
             master=self.parent.parent.root,
             text=(f"{self.parent.parent.game_vals.number}!"),
             font=("TF2 Build",25),
-            bg=self.parent.parent.bg,
-            fg="#00aaaa",
-        ).place(x=400,y=50)
+            fg=background[color],
+            bg=color,
+        ).place(x=175,y=50)
 
     def display_hints(self):
         """Show hints to help the player"""

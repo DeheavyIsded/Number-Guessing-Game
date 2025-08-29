@@ -10,12 +10,14 @@ class Misguess:
         self.misguess_list = tk.Listbox(
             self.parent.parent.root,
             bg= self.parent.parent.bg,
-            fg= "white",
+            fg= "yellow",
             font= ("TF2 Build", 15),
             exportselection= False,
-            selectmode= tk.NONE
+            selectmode= tk.NONE,
+            highlightthickness=0,
+            bd=0
         )
-        self.misguess_list.place(x= 50, y= 50)
+        self.misguess_list.place(x=25,y=10,width=30)
 
     @property
     def misguesses(self) -> list[int]:

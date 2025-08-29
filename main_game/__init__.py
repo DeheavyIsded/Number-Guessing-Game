@@ -18,10 +18,12 @@ class NumberGuessing:
         self.prp= prp
 
         self.root = tk.Tk()
-        self.root.geometry("1000x600")
+        self.root.geometry("600x475")
         self.root.title("Number Guessing Game")
-        self.root.iconphoto(False,
-                            tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png")))
+        self.root.iconphoto(
+            False,
+            tk.PhotoImage(file=os.path.join(os.path.dirname(__file__),"icon.png"))
+        )
 
         self.bg= "gray20"
         self.root.configure(background= self.bg)

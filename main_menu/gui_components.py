@@ -48,32 +48,7 @@ class Gui:
             background=("#bbccdd","#ddeeff")
         )
 
-        self.parent.start_button.place(x=250,y=200,width=300,height=50)
-
-        # The settings button
-        # XXX Get rid of this button and update the UI
-        self.settings_button = tk.Button(
-            self.root,
-            text="  SETTINGS  ",
-            font=("Arial",20,"bold"),
-            background="#ddeeff",
-            foreground="black",
-            activebackground="#5d7185",
-            activeforeground="white",
-            command=lambda:self.parent.check_settings(self)
-        )
-
-        self.add_hover(
-            self.settings_button,
-            background=("#bbccdd","#ddeeff")
-        )
-
-        # Set the related widget
-        if not self.parent.settings_set:
-            self.settings_button.place(x=260,y=275,width=280,height=50)
-
-        else:
-            self.parent.settings_i_owe_you.place(x=260,y=275,width=280,height=50)
+        self.parent.start_button.place(x=250,y=250,width=300,height=50)
 
         # The exit button
         self.exit_button = tk.Button(
@@ -92,7 +67,7 @@ class Gui:
             background=("#bbccdd","#ddeeff")
         )
 
-        self.exit_button.place(x=280,y=350,width=240,height=50)
+        self.exit_button.place(x=260,y=310,width=280,height=50)
 
         # The about button
         self.about_button = tk.Button(

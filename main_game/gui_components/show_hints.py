@@ -8,14 +8,18 @@ class ShowHints:
 
     def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
-        self.hints_label = tk.Label(master= self.parent.parent.root,
-                              text= "",
-                              fg= "white")
-        self.hints_label.place(x= 400, y= 200)
+        self.hints_label = tk.Label(
+            master=self.parent.parent.root,
+            text="",
+            font=("TF2 Build", 13),
+            fg="white",
+            bg=self.parent.parent.bg
+        )
+        self.hints_label.place(x=75, y=200)
 
     def no_hints(self, _) -> None:
         """No hints chosen"""
-        self.set_hint("")
+        self.set_hint("", new_font="TF2 Build")
 
     def greater_or_lesser(self, guess: int) -> None:
         """The Greater or Lesser option"""
@@ -25,13 +29,16 @@ class ShowHints:
              True: "The number is lower than your guess"
             }
 
-        self.set_hint(new_text= hint_text[(guess > self.parent.parent.game_vals.number)])
+        self.set_hint(
+            new_text=hint_text[(guess > self.parent.parent.game_vals.number)],
+            new_font="Times New Roman"
+        )
 
     def temperature(self, guess: int) -> None:
         """The Hot or Cold option"""
         hint_text: list[tuple[int, int, str, str]]= [
-            # Low, High, Text, Foreground
-        (1, 10, "Magma Hot!", "#aa0000"),
+         # Low, High, Text, Foreground
+        ( 1, 10, "Magma Hot!", "#aa0000"),
         (11, 20, "Real Hot!", "#ff1000"),
         (21, 30, "Warmer", "#ff3f00"),
         (31, 40, "Warm", "#ffcc00"),
@@ -43,10 +50,14 @@ class ShowHints:
         (88, 88, "Impossibly Cold!", "#95fff9")
         ]
         
-        difference: int= np.abs(self.parent.parent.game_vals.number - guess)
+        difference: int= np.abs(self.parent.parent.game_vals.number-guess)
         for low, high, text, color in hint_text:
             if low <= difference <= high:
-                self.set_hint(new_text= text, new_color= color)
+                self.set_hint(
+                    new_text=text,
+                    new_color=color,
+                    new_font="TF2 Build"
+                )
                 break
 
     def freemium_info(self, guess) -> None:
@@ -91,7 +102,10 @@ class ShowHints:
             if situation:
                 chosen_info.append(text)
 
-        self.set_hint(new_text= np.random.choice(chosen_info))
+        self.set_hint(
+            new_text=np.random.choice(chosen_info),
+            new_font="DejaVu Sans Mono"
+        )
 
     def premium_info(self, guess) -> None:
         """Less useful information"""
@@ -114,16 +128,43 @@ class ShowHints:
             "Division of this number and 100 would never equal to 1",
             "You should try a different number",
             "There are 89 different possible options in total",
-           f"With {guess} checked, {89-self.parent.parent.game_vals.attempts_left} options left",
+           f"With {guess} checked, {89-len(self.parent.misguess.misguesses_raw)} options left",
             "Did you try 10 and 99 yet?"
         ]
 
-        self.set_hint(new_text=np.random.choice(hint_text))
+        self.set_hint(
+            new_text=np.random.choice(hint_text),
+            new_font="Lucida Sans Unicode"
+        )
 
-    def set_hint(self, new_text: str, new_color: str=None) -> None:
-        """Set the new text for the hints display"""
-        if not new_color:
-            self.hints_label.config(text=new_text, bg=self.parent.parent.bg, fg="white")
-            return
+    def set_hint(self, **kwargs) -> None:
+        """
+        Set the new text for the hints display
 
-        self.hints_label.config(text=new_text, bg=self.parent.parent.bg, fg=new_color)
+        KWARGS:
+            new_text: str (The new text)
+            new_color: str (Preferably a HEX code)
+            new_font: str (Only the family name)
+            new_coords: tuple[int, int] (Change the position with x, y)
+        """
+
+        defaults: dict={
+        "new_text": "",
+        "new_color": "#ffffff",
+        "new_font": "TF2 Build",
+        "new_coords": (100, 200)
+        }
+
+        defaults.update(kwargs)
+
+        self.hints_label.config(
+            text=defaults["new_text"],
+            font= (defaults["new_font"], 13),
+            bg=self.parent.parent.bg,
+            fg=defaults["new_color"]
+        )
+
+        self.hints_label.place_configure(
+            x= defaults["new_coords"][0],
+            y= defaults["new_coords"][1]
+        )
