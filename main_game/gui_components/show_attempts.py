@@ -14,4 +14,4 @@ class AttemptsLeft:
             bg= self.parent.parent.bg,
             fg= "white"
         )
-        self.attempt_screen.place(x= 175, y= 160)
+        self.attempt_screen.place(x= 215, y= 160)

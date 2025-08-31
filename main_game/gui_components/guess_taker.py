@@ -8,9 +8,10 @@ class GuessTaker:
 
     def __init__(self, parent): # For root, game_vals and prp, you need self.parent.parent
         self.parent = parent
+        self.entry: object
 
         self.guess_entrybox = tk.Entry(self.parent.parent.root)
-        self.guess_entrybox.place(x= 150, y= 100)
+        self.guess_entrybox.place(x= 200, y= 100)
 
         self.guess_entrybox.bind("<Return>", self.check_entry)
 
@@ -101,16 +102,16 @@ class GuessTaker:
         background: dict[str, str]= {
             "#00ff00":"#ff0000",
             "#ff0000":"#00ff00"
-}
+        }
 
         # Show a label to display the correct number
         tk.Label(
             master=self.parent.parent.root,
             text=(f"{self.parent.parent.game_vals.number}!"),
-            font=("TF2 Build",25),
+            font=("TF2 Build",100),
             fg=background[color],
             bg=color,
-        ).place(x=175,y=50)
+        ).place(x=350,y=50)
 
     def display_hints(self):
         """Show hints to help the player"""
@@ -120,6 +121,6 @@ class GuessTaker:
             2: self.parent.hints.temperature,
             3: self.parent.hints.freemium_info,
             4: self.parent.hints.premium_info
-            }
+        }
 
         proper_hints[self.parent.parent.prp.hints_chosen_level](self.entry)

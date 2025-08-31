@@ -70,6 +70,7 @@ class TimerManager:
         self.parent = parent
         self.timer_on: bool= False
         self.stop_the_timer: bool= False
+        self.picked: object
 
         if self.parent.parent.prp.timer_custom_time:
             self.time_raw = self.parent.parent.prp.timer_custom_time
@@ -77,13 +78,23 @@ class TimerManager:
         else:
             self.time_raw = self.parent.parent.prp.timer_chosen_time
 
-        self.timer = tk.Label( # !!! Widget vals
+        timer_items: dict[str, tuple(str, tuple[int, int])]= {
+            "": ("No pressure", (200,250)),
+            "timer": ("", (225,250)),
+            "chronometer": ("00:00", (225,250))
+        }
+
+        items = timer_items[self.parent.parent.prp.timer_style]
+
+        self.timer = tk.Label( # Widget vals
             master= self.parent.parent.root,
-            text= "No Pressure",
+            text= items[0],
             font= ("Consolas", 15),
             bg= self.parent.parent.bg,
             fg= "red"
         )
+
+        self.timer.place(x=items[1][0],y=items[1][1]) # Widget placement
 
     def stop_timer(self):
         """Give an order to stop the timer"""
@@ -101,8 +112,6 @@ class TimerManager:
         """Start the timers"""
         if not self.parent.parent.prp.timer_enabled or self.timer_on:
             return
-
-        self.timer.place(x=190, y=250) # !!! Widget placement
         self.timer_on = True
 
         if self.parent.parent.prp.timer_style == "timer":

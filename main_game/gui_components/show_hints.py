@@ -1,13 +1,16 @@
 """Show hints to help the player"""
 
-import numpy as np
 import tkinter as tk
+import numpy as np
 
 class ShowHints:
     """Special hints about the number"""
 
     def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
+
+        print(self.parent.parent.game_vals.number)
+
         self.hints_label = tk.Label(
             master=self.parent.parent.root,
             text="",
@@ -19,9 +22,9 @@ class ShowHints:
 
     def no_hints(self, _) -> None:
         """No hints chosen"""
-        self.set_hint("", new_font="TF2 Build")
+        self.set_hint(new_text="", new_font="TF2 Build")
 
-    def greater_or_lesser(self, guess: int) -> None:
+    def greater_or_lesser(self, guess: int) -> None: # TODO: Add the dynamic coordinate system!
         """The Greater or Lesser option"""
         hint_text: dict[bool, str]= {
             # True: guess > number, False: guess < number
@@ -36,31 +39,31 @@ class ShowHints:
 
     def temperature(self, guess: int) -> None:
         """The Hot or Cold option"""
-        hint_text: list[tuple[int, int, str, str]]= [
+        hint_text: list[tuple[int, int, str, str, tuple[int, int]]]= [
          # Low, High, Text, Foreground
-        ( 1, 10, "Magma Hot!", "#aa0000"),
-        (11, 20, "Real Hot!", "#ff1000"),
-        (21, 30, "Warmer", "#ff3f00"),
-        (31, 40, "Warm", "#ffcc00"),
-        (41, 50, "Cool", "#297dff"),
-        (51, 60, "Cold", "#3ba5ff"),
-        (61, 70, "Really Cold!", "#22edff"),
-        (71, 80, "Freezing!", "#53fff3"),
-        (81, 87, "Oh my Cold!", "#62fff7"),
-        (88, 88, "Impossibly Cold!", "#95fff9")
+        ( 1,10,"Magma Hot!","#aa0000",(205,200)),
+        (11,20,"Real Hot!","#ff1000",(215,200)),
+        (21,30,"Warmer","#ff3f00",(225,200)),
+        (31,40,"Warm","#ffcc00",(230,200)),
+        (41,50,"Cool","#297dff",(230,200)),
+        (51,60,"Cold","#3ba5ff",(230,200)),
+        (61,70,"Really Cold!","#22edff",(205,200)),
+        (71,80,"Freezing!","#53fff3",(220,200)),
+        (81,87,"Oh my Cold!","#62fff7",(205,200))
         ]
-        
+
         difference: int= np.abs(self.parent.parent.game_vals.number-guess)
-        for low, high, text, color in hint_text:
+        for low, high, text, color, coordinate in hint_text:
             if low <= difference <= high:
                 self.set_hint(
                     new_text=text,
                     new_color=color,
-                    new_font="TF2 Build"
+                    new_font="TF2 Build",
+                    new_coords=(coordinate[0], coordinate[1])
                 )
                 break
 
-    def freemium_info(self, guess) -> None:
+    def freemium_info(self, guess) -> None: # Add the dynamic coordinate system
         """Useful information"""
         number: int= self.parent.parent.game_vals.number
 
@@ -78,8 +81,9 @@ class ShowHints:
  (np.sum(int(digit) for digit in str(number)) == np.sum(int(digit) for digit in str(guess))),
  (int(str(number)[0]) == int(str(number)[1]) + 1),
  (str(number)[0] == str(number)[1]), # Digits are equal
- (str(number) == str(number)[::-1]) # Palindrome
-        ]
+ (str(number) == str(number)[::-1]), # Palindrome
+ number == 42 # The 42 joke
+        ] # Sorry for the mess, tee-hee
 
         all_info: list[tuple[bool, str]]= [
             (situations [0], "This is an odd number"),
@@ -95,6 +99,7 @@ class ShowHints:
             (situations[10], "This number has consecutive digits"),
             (situations[11], "The digits of this number are the same"),
             (situations[12], "This number is a palindrome"),
+            (situations[13], "This number is the meaning of universe, life and everything")
         ]
 
         chosen_info: list[str]= []
@@ -132,9 +137,35 @@ class ShowHints:
             "Did you try 10 and 99 yet?"
         ]
 
+        hint_coords: dict[str, tuple[int, int]]={
+            hint_text[0]:(125,200),
+            hint_text[1]:(100,200),
+            hint_text[2]:(165,200),
+            hint_text[3]:(100,200),
+            hint_text[4]:(125,200),
+            hint_text[5]:(75,200),
+            hint_text[6]:(125,200),
+            hint_text[7]:(100,200),
+            hint_text[8]:(75,200),
+            hint_text[9]:(75,200),
+            hint_text[10]:(205,200),
+            hint_text[11]:(75,200),
+            hint_text[12]:(125,200),
+            hint_text[13]:(135,200),
+            hint_text[14]:(75,200),
+            hint_text[15]:(75,200),
+            hint_text[16]:(125,200),
+            hint_text[17]:(75,200),
+            hint_text[18]:(125,200),
+            hint_text[19]:(150,200)
+        }
+
+        chosen = np.random.choice(hint_text)
+
         self.set_hint(
-            new_text=np.random.choice(hint_text),
-            new_font="Lucida Sans Unicode"
+            new_text=chosen,
+            new_font="Lucida Sans Unicode",
+            new_coords=hint_coords[chosen]
         )
 
     def set_hint(self, **kwargs) -> None:
