@@ -9,8 +9,6 @@ class ShowHints:
     def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
 
-        print(self.parent.parent.game_vals.number)
-
         self.hints_label = tk.Label(
             master=self.parent.parent.root,
             text="",
@@ -34,7 +32,8 @@ class ShowHints:
 
         self.set_hint(
             new_text=hint_text[(guess > self.parent.parent.game_vals.number)],
-            new_font="Times New Roman"
+            new_font="Times New Roman",
+            new_coords=(125,200)
         )
 
     def temperature(self, guess: int) -> None:
@@ -82,24 +81,26 @@ class ShowHints:
  (int(str(number)[0]) == int(str(number)[1]) + 1),
  (str(number)[0] == str(number)[1]), # Digits are equal
  (str(number) == str(number)[::-1]), # Palindrome
- number == 42 # The 42 joke
+ number == 42, # The 42 joke
+ number in (10, 99) # An edge number
         ] # Sorry for the mess, tee-hee
 
         all_info: list[tuple[bool, str]]= [
-            (situations [0], "This is an odd number"),
-            (situations [1], "This is an even number"),
-            (situations [2],f"The tens of this number and {guess} are equal"),
-            (situations [3],f"The ones of this number and {guess} are equal"),
-            (situations [4], "This number is a perfect square"),
-            (situations [5], "This is a prime number"),
-            (situations [6], "This number can divide by ten"),
-            (situations [7],f"This number is the square root of {guess}"),
-            (situations [8],f"This number is the square of {guess}"),
-            (situations [9],f"The sum of this numbers digits equal to the sum of {guess}' digits"),
-            (situations[10], "This number has consecutive digits"),
-            (situations[11], "The digits of this number are the same"),
-            (situations[12], "This number is a palindrome"),
-            (situations[13], "This number is the meaning of universe, life and everything")
+(situations [0],"This is an odd number"),
+(situations [1],"This is an even number"),
+(situations [2],f"The tens of this number and {guess} are equal"),
+(situations [3],f"The ones of this number and {guess} are equal"),
+(situations [4],"This number is a perfect square"),
+(situations [5],"This is a prime number"),
+(situations [6],"This number can divide by ten"),
+(situations [7],f"This number is the square root of {guess}"),
+(situations [8],f"This number is the square of {guess}"),
+(situations [9],f"The sum of this numbers digits equal to the sum of {guess}'s digits"),
+(situations[10],"This number has consecutive digits"),
+(situations[11],"The digits of this number are the same"),
+(situations[12],"This number is a palindrome"),
+(situations[13],"This number is the meaning of universe, life and everything"),
+(situations[14],"This is an edge number, if you understand")
         ]
 
         chosen_info: list[str]= []
@@ -107,9 +108,31 @@ class ShowHints:
             if situation:
                 chosen_info.append(text)
 
+        np.random.shuffle(chosen_info)
+        chosen_hint = np.random.choice(chosen_info)
+
+        coords: dict[str, tuple[int, int]]= {
+            all_info[0][1]:(175,200),
+            all_info[1][1]:(175,200),
+            all_info[2][1]:(125,200),
+            all_info[3][1]:(125,200),
+            all_info[4][1]:(150,200),
+            all_info[5][1]:(175,200),
+            all_info[6][1]:(150,200),
+            all_info[7][1]:(125,200),
+            all_info[8][1]:(150,200),
+            all_info[9][1]:(75,200),
+            all_info[10][1]:(135,200),
+            all_info[11][1]:(125,200),
+            all_info[12][1]:(160,200),
+            all_info[13][1]:(75,200),
+            all_info[14][1]:(120,200)
+        }
+
         self.set_hint(
-            new_text=np.random.choice(chosen_info),
-            new_font="DejaVu Sans Mono"
+            new_text=chosen_hint,
+            new_font="DejaVu Sans Mono",
+            new_coords=coords[chosen_hint]
         )
 
     def premium_info(self, guess) -> None:

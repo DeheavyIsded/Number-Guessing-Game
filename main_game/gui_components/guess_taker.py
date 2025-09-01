@@ -111,7 +111,7 @@ class GuessTaker:
             font=("TF2 Build",100),
             fg=background[color],
             bg=color,
-        ).place(x=350,y=50)
+        ).place(x=375,y=50)
 
     def display_hints(self):
         """Show hints to help the player"""

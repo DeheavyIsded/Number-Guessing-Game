@@ -23,8 +23,7 @@ class RandomNumber:
 
         self._trials: int= self.trial_levels[self.parent.prp.difficulty]
         self._attempts_left: int= self._trials
-        #XXX self._number: int= random.randint(low= 10, high= 100) # Generate a random 2 digit number
-        self._number: int= 99
+        self._number: int= random.randint(low= 10, high= 100) # Generate a random 2 digit number
 
     @property
     def trials(self) -> int:
