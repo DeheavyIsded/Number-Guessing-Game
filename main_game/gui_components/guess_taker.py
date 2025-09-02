@@ -84,10 +84,14 @@ class GuessTaker:
 
     def end_game(self, message, color):
         """End the game"""
-        # Stop the timers
+        # Stop the working functions
+        self.parent.hints.lock = True
         self.parent.timers.stop()
+
+        # Display the mssage
         messagebox.showwarning(message=message)
 
+        # Lock the Entry-box
         self.guess_entrybox.config(state="readonly")
 
         # Change the GUI colors

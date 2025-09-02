@@ -13,6 +13,7 @@ class TimerTimer:
     def tick(self):
         """Countdown"""
         if self.chosen_time_dupe < 0:
+            self.out_of_time()
             return
 
         if self.sibling.stop_the_timer:
@@ -33,6 +34,11 @@ class TimerTimer:
         if self.ticktack:
             self.sibling.parent.parent.root.after_cancel(self.ticktack)
             self.ticktack = None
+
+    def out_of_time(self) -> None:
+        """But I'm outta my head when you're not around"""
+        self.sibling.parent.parent.root.after(1000, self.stop)
+        self.sibling.parent.guesstaker.end_game(message="You are out of time", color= "#ff0000")
 
 class ChronometerTimer:
     """Class for Chronometer timer"""

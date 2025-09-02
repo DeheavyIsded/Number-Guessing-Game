@@ -8,6 +8,7 @@ class ShowHints:
 
     def __init__(self, parent): # For root, game_vals and Properties, you need self.parent.parent
         self.parent = parent
+        self.lock = bool()
 
         self.hints_label = tk.Label(
             master=self.parent.parent.root,
@@ -22,13 +23,17 @@ class ShowHints:
         """No hints chosen"""
         self.set_hint(new_text="", new_font="TF2 Build")
 
-    def greater_or_lesser(self, guess: int) -> None: # TODO: Add the dynamic coordinate system!
+    def greater_or_lesser(self, guess: int) -> None:
         """The Greater or Lesser option"""
+
+        if self.lock:
+            return
+
         hint_text: dict[bool, str]= {
-            # True: guess > number, False: guess < number
+            # True: (guess > number), False: (guess < number)
             False: "The number is higher than your guess",
              True: "The number is lower than your guess"
-            }
+        }
 
         self.set_hint(
             new_text=hint_text[(guess > self.parent.parent.game_vals.number)],
@@ -38,6 +43,10 @@ class ShowHints:
 
     def temperature(self, guess: int) -> None:
         """The Hot or Cold option"""
+
+        if self.lock:
+            return
+
         hint_text: list[tuple[int, int, str, str, tuple[int, int]]]= [
          # Low, High, Text, Foreground
         ( 1,10,"Magma Hot!","#aa0000",(205,200)),
@@ -64,6 +73,10 @@ class ShowHints:
 
     def freemium_info(self, guess) -> None: # Add the dynamic coordinate system
         """Useful information"""
+
+        if self.lock:
+            return
+
         number: int= self.parent.parent.game_vals.number
 
         situations: list[bool]= [
@@ -137,6 +150,10 @@ class ShowHints:
 
     def premium_info(self, guess) -> None:
         """Less useful information"""
+
+        if self.lock:
+            return
+
         hint_text: list[str]=[
             "This number might have two digits",
             "This number could be a positive number",
