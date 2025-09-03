@@ -3,13 +3,8 @@
 import os
 import tkinter as tk
 from tkinter import messagebox
-try:
-    from .main_game.gui_components import NGGui
-    from .main_game.number_generator import RandomNumber
-
-except ImportError:
-    from main_game.gui_components import NGGui
-    from main_game.number_generator import RandomNumber
+from main_game.gui_components import NGGui
+from main_game.number_generator import RandomNumber
 
 class NumberGuessing:
     """Number Guessing Game"""

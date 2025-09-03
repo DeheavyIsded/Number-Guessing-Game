@@ -65,9 +65,9 @@ class GameSettings:
         )
 
         self.add_hover(
-            self.title_button,
-            background= ("#775533","#997755"),
-            foreground= ("#d0d0d0","#b0b0b0")
+            widget=self.title_button,
+            background=("#775533","#997755"),
+            foreground=("#d0d0d0","#b0b0b0")
         )
 
         # Load the custom modules' objects
@@ -75,6 +75,7 @@ class GameSettings:
 
         self.upd.update_general()
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
+        self.root.update_idletasks()
         self.root.mainloop()
 
     def load_modules(self, modules: list):

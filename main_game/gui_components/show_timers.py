@@ -12,14 +12,18 @@ class TimerTimer:
 
     def tick(self):
         """Countdown"""
+
+        # If the timer hits 00:00
         if self.chosen_time_dupe < 0:
             self.out_of_time()
             return
 
+        # If the player finishes before the timer
         if self.sibling.stop_the_timer:
             self.sibling.parent.parent.root.after_cancel(self.ticktack)
             return
 
+        # If the timer hasn't stopped to this point, count down and repeat
         time_text = self.sibling.convert_time(self.chosen_time_dupe)
         self.sibling.timer.config(text= time_text)
         self.chosen_time_dupe -= 1
@@ -73,20 +77,24 @@ class TimerManager:
     """Start the related timer"""
 
     def __init__(self, parent):
+
+        # Define important attributes
         self.parent = parent
-        self.timer_on: bool= False
-        self.stop_the_timer: bool= False
+        self.timer_on = bool()
+        self.stop_the_timer = bool()
         self.picked: object
 
+        # Assign the preffered time
         if self.parent.parent.prp.timer_custom_time:
             self.time_raw = self.parent.parent.prp.timer_custom_time
 
         else:
             self.time_raw = self.parent.parent.prp.timer_chosen_time
 
+        # Enter a different text for each choice
         timer_items: dict[str, tuple(str, tuple[int, int])]= {
             "": ("No pressure", (200,250)),
-            "timer": ("", (225,250)),
+            "timer": ("Add this text already you dumbass", (225,250)),
             "chronometer": ("00:00", (225,250))
         }
 
@@ -102,7 +110,7 @@ class TimerManager:
 
         self.timer.place(x=items[1][0],y=items[1][1]) # Widget placement
 
-    def stop_timer(self):
+    def stop_timer(self) -> None:
         """Give an order to stop the timer"""
         self.stop_the_timer = True
 
@@ -118,14 +126,18 @@ class TimerManager:
         """Start the timers"""
         if not self.parent.parent.prp.timer_enabled or self.timer_on:
             return
+
         self.timer_on = True
 
         if self.parent.parent.prp.timer_style == "timer":
+
             # Initialize Timer timer
             self.timer.config(text= self.convert_time(self.time_raw))
             self.picked = TimerTimer(self)
 
-        else: # Initialize Chronometer timer
+        else:
+
+            # Initialize Chronometer timer
             self.timer.config(text="00:00")
             self.picked = ChronometerTimer(self)
 
@@ -135,6 +147,11 @@ class TimerManager:
         """Stop the timers"""
         try:
             self.picked.stop()
+            self.picked.chosen_time_dupe = self.time_raw
+            self.picked.total_time = 0
 
         except AttributeError:
             pass
+
+        finally:
+            self.timer_on = True

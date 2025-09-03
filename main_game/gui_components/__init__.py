@@ -13,6 +13,7 @@ class NGGui: # Root: self.parent.root
 
         self.parent = parent
 
+        # Combine all modules in one file for easier usage
         self.misguess = Misguess(self)
         self.hints = ShowHints(self)
         self.attempts = AttemptsLeft(self)
