@@ -53,14 +53,6 @@ class GameSettings:
 
         self.title.place(x= 200, y= 10)
 
-        self.add_hover(
-            widget=self.title_button,
-            hover_bg="#775533",
-            normal_bg="#997755",            
-            hover_fg="#d0d0d0",
-            normal_fg="#b0b0b0",
-        )
-
         # Load the custom modules' objects
         self.load_modules([Difficulty, Hints, Timer])
 

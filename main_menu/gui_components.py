@@ -17,7 +17,7 @@ class Gui:
         self.main_menu_text = tk.Label(
             master=self.root,
             text="Number Guessing Game",
-            font=self.parent.parent.main_menu_font,
+            font=("TF2 Build", 25, "bold"),
             background=self.parent.parent.root_background,
             foreground="#0000bb"
         )
@@ -32,7 +32,7 @@ class Gui:
             normal_text="Number Guessing Game"
         )
 
-        self.main_menu_text.place(x=100,y=50,height=100)
+        self.main_menu_text.place(x=75,y=50,height=50)
 
         # The start button
         self.parent.start_button = tk.Button(
@@ -52,7 +52,7 @@ class Gui:
             normal_bg="#ddeeff"
         )
 
-        self.parent.start_button.place(x=250,y=250,width=300,height=50)
+        self.parent.start_button.place(x=100,y=250,width=100,height=25)
 
         # The exit button
         self.exit_button = tk.Button(
@@ -72,7 +72,7 @@ class Gui:
             normal_bg="#ddeeff"
         )
 
-        self.exit_button.place(x=260,y=310,width=280,height=50)
+        self.exit_button.place(x=140,y=350,width=60,height=25)
 
         # The about button
         self.about_button = tk.Button(
@@ -94,7 +94,7 @@ class Gui:
             normal_fg="black"
         )
 
-        self.about_button.place(x=650,y=435,width=100,height=30)
+        self.about_button.place(x=120,y=300,width=80,height=30)
 
         # Start the window
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)

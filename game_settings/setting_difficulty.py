@@ -22,9 +22,9 @@ class Difficulty:
 
         # The Difficulty options; easy, medium, hard
         difficulty_options: tuple[dict[str, str]]= (
-            {"text":"Easy", "bg":"#33aa33", "fg":"white", "y_coords":title_y+60},
-            {"text":"Medium", "bg":"#bfbf11", "fg":"white", "y_coords":title_y+110},
-            {"text":"Hard", "bg":"#bf1111", "fg":"white", "y_coords":title_y+140}
+            {"text":"Easy", "bg":"#33aa33", "fg":"white", "y_coord":title_y+60},
+            {"text":"Medium", "bg":"#bfbf11", "fg":"white", "y_coord":title_y+100},
+            {"text":"Hard", "bg":"#bf1111", "fg":"white", "y_coord":title_y+140}
         )
 
         for opt in difficulty_options:

@@ -17,6 +17,7 @@ Held properties:
 """
 
 import tkinter
+from _tkinter import TclError
 
 class Properties:
     """
@@ -87,7 +88,11 @@ class Properties:
     @property
     def timer_custom_time(self) -> int:
         """Getter for Custom Time"""
-        return self.timer_custom_time_raw.get()
+        try:
+            return self.timer_custom_time_raw.get()
+
+        except TclError:
+            return None
 
     # >>> Setters
     @difficulty.setter

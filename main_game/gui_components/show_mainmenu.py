@@ -4,13 +4,7 @@ import tkinter as tk
 import sys
 from pathlib import Path
 
-sys.path.append(str(Path(__file__).resolve().parent))
-
-try:
-    from number_guessing.main_menu import Start
-
-except ImportError:
-    print("Fuck")
+sys.path.append(str(Path(__file__).resolve().parents[2]))
 
 class MainMenuButton:
     """The button to take you back to the main menu"""
@@ -52,6 +46,7 @@ class MainMenuButton:
         """Go back to main menu"""
         self.hide_buttons() #TODO: Find a way to connect the main menu to here
         self.parent.parent.root.destroy()
+        from main_menu import Start
         Start()
 
     def replay(self) -> None:

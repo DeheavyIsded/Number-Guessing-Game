@@ -12,7 +12,7 @@ class Start:
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry("800x500")
+        self.root.geometry("600x300")
         self.root.title("Number Guessing Game")
         self.root.iconphoto(
             False,
@@ -25,12 +25,6 @@ class Start:
         # Main menu texts font
         ctypes.windll.gdi32.AddFontResourceW(
             os.path.join(os.path.dirname(__file__), "tf2build.ttf")
-        )
-
-        self.main_menu_font = tkFont.Font(
-            family= "TF2 Build",
-            size= 37,
-            weight= "bold"
         )
 
         MainMenu(self)

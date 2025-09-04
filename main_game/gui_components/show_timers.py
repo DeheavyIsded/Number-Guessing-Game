@@ -94,7 +94,7 @@ class TimerManager:
         # Enter a different text for each choice
         timer_items: dict[str, tuple(str, tuple[int, int])]= {
             "": ("No pressure", (200,250)),
-            "timer": ("Add this text already you dumbass", (225,250)),
+            "timer": (self.convert_time(self.time_raw), (225,250)),
             "chronometer": ("00:00", (225,250))
         }
 
@@ -147,9 +147,16 @@ class TimerManager:
         """Stop the timers"""
         try:
             self.picked.stop()
-            self.picked.chosen_time_dupe = self.time_raw
-            self.picked.total_time = 0
+        except AttributeError:
+            pass
 
+        try:
+            self.picked.chosen_time_dupe = self.time_raw
+        except AttributeError:
+            pass
+
+        try:
+            self.picked.total_time = 0
         except AttributeError:
             pass
 

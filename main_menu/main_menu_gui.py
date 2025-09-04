@@ -37,6 +37,6 @@ class MainMenu:
 
     def start(self):
         """Start the game"""
-        self.root.destroy()
+        self.parent.root.destroy()
         settings_menu: GameSettings = GameSettings()
         settings_menu.set_up_gui()
