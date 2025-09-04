@@ -11,14 +11,17 @@ class Hints:
         self.parent = parent
 
         # The "Hints" title
-        hints_title = tk.Label(self.parent.root,
-                               text= "                Hints               ",
-                               font= ("TF2 Build", 25, "underline"),
-                               bg= "gray20",
-                               fg= "white")
+        hints_title = tk.Label(
+            self.parent.root,
+            text= "                Hints               ",
+            font= ("TF2 Build", 25, "underline"),
+            bg= "gray20",
+            fg= "white"
+        )
         hints_title.place(x= 275, y= 75)
 
         ### The "Hints" Options
+
         self.hints_yes = tk.BooleanVar(value= False)
         # The name shows the meaning of True value: yes
 
@@ -29,26 +32,30 @@ class Hints:
         self.create_radio_button("Premium Information", 4)
         ]
 
-        self.description: tk.Label = tk.Label(self.parent.root,
-                               text= "",
-                               bg= "gray20",
-                               fg= "yellow",
-                               font= ("Arial", 12, "italic"))
+        self.description: tk.Label = tk.Label(
+            self.parent.root,
+            text= "",
+            bg= "gray20",
+            fg= "yellow",
+            font= ("Arial", 12, "italic")
+        )
         self.description.place(x= 440, y= 150)
 
         # The "Hints" checkbox
-        hints_toggle = tk.Checkbutton(self.parent.root,
-                                      text= "Get Hints",
-                                      font= ("Arial", 10, "bold"),
-                                      bg= "gray20",
-                                      selectcolor= "black",
-                                      fg= "white",
-                                      activebackground= "gray20",
-                                      activeforeground= "white",
-                                      variable= self.hints_yes,
-                                      command= self.check_radio_buttons,
-                                      onvalue= True,
-                                      offvalue= False)
+        hints_toggle = tk.Checkbutton(
+            self.parent.root,
+            text= "Get Hints",
+            font= ("Arial", 10, "bold"),
+            bg= "gray20",
+            selectcolor= "black",
+            fg= "white",
+            activebackground= "gray20",
+            activeforeground= "white",
+            variable= self.hints_yes,
+            command= self.check_radio_buttons,
+            onvalue= True,
+            offvalue= False
+        )
         hints_toggle.place(x= 275, y= 125)
 
     def create_radio_button(self, text: str, value: int) -> tk.Radiobutton:
@@ -60,22 +67,23 @@ class Hints:
         else:
             self.parent.hints_chosen_level = self.parent.prp.hints_chosen_level
 
-        return tk.Radiobutton(self.parent.root,
-                              text= text,
-                              bg= "gray20",
-                              fg= "white",
-                              activebackground= "gray20",
-                              activeforeground= "white",
-                              selectcolor= "black",
-                              variable= self.parent.prp.hints_chosen_level_raw,
-                              value= value,
-                              command= lambda: self.show_descriptions(value))
+        return tk.Radiobutton(
+            self.parent.root,
+            text= text,
+            bg= "gray20",
+            fg= "white",
+            activebackground= "gray20",
+            activeforeground= "white",
+            selectcolor= "black",
+            variable= self.parent.prp.hints_chosen_level_raw,
+            value= value,
+            command= lambda: self.show_descriptions(value)
+        )
 
     def show_descriptions(self, value: int | None = 0) -> None:
         """Show the descripton of the chosen option"""        
 
-        self.parent.upd.update_hint_level(
-            hints_checked= self.hints_yes.get())
+        self.parent.upd.update_hint_level(hints_checked= self.hints_yes.get())
 
         hint_descriptions: dict[int, str]= {
             0: "",
@@ -83,7 +91,8 @@ class Hints:
             2: "Shows the distance of your incorrect guess"
                "\n ... without numbers",
             3: "Gives helpful information about the number",
-            4: "Gives less helpful information about the number",}
+            4: "Gives less helpful information about the number"
+        }
 
         if not self.hints_yes.get():
             self.description.config(text= hint_descriptions[0])

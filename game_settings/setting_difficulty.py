@@ -10,37 +10,38 @@ class Difficulty:
         self.parent = parent
 
         # The "Difficulty" title
-        difficulty_title = tk.Label(self.parent.root,
-                                    text= "Difficulty",
-                                    font= ("TF2 Build", 25, "underline"),
-                                    bg= "gray20",
-                                    fg= "white")
+        difficulty_title = tk.Label(
+            self.parent.root,
+            text= "Difficulty",
+            font= ("TF2 Build", 25, "underline"),
+            bg= "gray20",
+            fg= "white"
+        )
         title_y = 75
         difficulty_title.place(x= 10, y= title_y)
 
         # The Difficulty options; easy, medium, hard
-        self.difficulty_options: list[str] = ["Easy", "Medium", "Hard"]
-        difficulty_backgrounds: list[str] = ["#33aa33", "#bfbf11", "#bf1111"]
-        difficulty_foregrounds: list[str] = ["white", "white", "white"]
-        y_coords: list[int] = [title_y+60, title_y+100, title_y+140]
+        difficulty_options: tuple[dict[str, str]]= (
+            {"text":"Easy", "bg":"#33aa33", "fg":"white", "y_coords":title_y+60},
+            {"text":"Medium", "bg":"#bfbf11", "fg":"white", "y_coords":title_y+110},
+            {"text":"Hard", "bg":"#bf1111", "fg":"white", "y_coords":title_y+140}
+        )
 
-        for (option, background, foreground, y_coord) in zip(self.difficulty_options,
-                                                             difficulty_backgrounds,
-                                                             difficulty_foregrounds,
-                                                             y_coords):
+        for opt in difficulty_options:
             option_button = tk.Radiobutton(
                 self.parent.root,
-                text= option,
+                text= opt["text"],
                 variable= self.parent.prp.difficulty_raw,
-                value= option,
+                value= opt["text"],
                 font=("TF2 Build", 16),
-                bg= background,
-                fg= foreground,
-                activebackground= self.decrease_color_hue(background, 50),
-                selectcolor= self.decrease_color_hue(background, 50),
+                bg= opt["bg"],
+                fg= opt["fg"],
+                activebackground= self.decrease_color_hue(opt["bg"], 50),
+                selectcolor= self.decrease_color_hue(opt["bg"], 50),
                 indicatoron= True,
-                command= self.parent.upd.update_difficulty)
-            option_button.place(x= 10, y= y_coord)
+                command= self.parent.upd.update_difficulty
+            )
+            option_button.place(x= 10, y= opt["y_coord"])
 
     def decrease_color_hue(self, color: str, amount: str) -> str:
         """Decrease the hue of the given Hexidecimal color"""

@@ -13,37 +13,44 @@ class TimerTimerTime:
 
         # >>> The Timer-Timer—Sub-Menu
         # The "Timer's Time" title
-        self.timer_timer_time_title= tk.Label(self.parent.parent.root,
-                                         text= "Timer's Time",
-                                         font= ("TF2 Build", 15),
-                                         bg= "gray20",
-                                         fg= "#00ff00")
+        self.timer_timer_time_title= tk.Label(
+            self.parent.parent.root,
+            text= "Timer's Time",
+            font= ("TF2 Build", 15),
+            bg= "gray20",
+            fg= "#00ff00"
+        )
+
         # The time options
         self.timer_time_40: tk.Radiobutton= self.create_radio_buttons("40 seconds", 40)
         self.timer_time_60: tk.Radiobutton= self.create_radio_buttons("60 seconds", 60)
         self.timer_time_100: tk.Radiobutton= self.create_radio_buttons("100 seconds", 100)
 
         # The custom time choice button
-        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(self.parent.parent.root,
-                                                               text= " Custom time",
-                                                               font= ("Arial", 12),
-variable= self.parent.parent.parent.prp.timer_chosen_time_raw, # I'm sick of your fucking C0301
-                                                               value= (-1),
-                                                               command= self.summon_entrybox,
-                                                               bg= "gray20",
-                                                               fg= "white",
-                                                               activebackground= "gray20",
-                                                               activeforeground= "white",
-                                                               selectcolor= "black")
+        self.timer_time_custom: tk.Radiobutton= tk.Radiobutton(
+            self.parent.parent.root,
+            text= " Custom time",
+            font= ("Arial", 12),
+            variable= self.parent.parent.parent.prp.timer_chosen_time_raw,
+            value= (-1),
+            command= self.summon_entrybox,
+            bg= "gray20",
+            fg= "white",
+            activebackground= "gray20",
+            activeforeground= "white",
+            selectcolor= "black"
+        )
 
         # Entrybox for custom time entrance
-        self.timer_custom_entrybox: tk.Entry= tk.Entry(self.parent.parent.root,
-                                                    font= ("Consolas", 10),
-                                                    bg= "#a0a0a0",
-                                                    fg= "black",
-                                                    selectbackground= "#909090",
-                                                    selectforeground= "gray",
-                                                    state= tk.NORMAL)
+        self.timer_custom_entrybox: tk.Entry= tk.Entry(
+            self.parent.parent.root,
+            font= ("Consolas", 10),
+            bg= "#a0a0a0",
+            fg= "black",
+            selectbackground= "#909090",
+            selectforeground= "gray",
+            state= tk.NORMAL
+        )
         self.timer_custom_entrybox.bind("<Return>", self.get_input)
 
     def get_input(self, _) -> None:

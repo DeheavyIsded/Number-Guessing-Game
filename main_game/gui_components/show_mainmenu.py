@@ -1,12 +1,22 @@
 """The button to take you back to main menu"""
 
 import tkinter as tk
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent))
+
+try:
+    from number_guessing.main_menu import Start
+
+except ImportError:
+    print("Fuck")
 
 class MainMenuButton:
     """The button to take you back to the main menu"""
 
     def __init__(self, parent):
-        self.parent=parent
+        self.parent = parent
 
         self.main_menu_button = tk.Button(
             master=self.parent.parent.root,
@@ -41,6 +51,8 @@ class MainMenuButton:
     def main_menu(self) -> None:
         """Go back to main menu"""
         self.hide_buttons() #TODO: Find a way to connect the main menu to here
+        self.parent.parent.root.destroy()
+        Start()
 
     def replay(self) -> None:
         """Restart the game with the same settings"""

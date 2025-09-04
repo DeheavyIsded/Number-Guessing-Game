@@ -12,10 +12,13 @@ class Timer:
         self.parent = parent
 
         # Title for the main menu
-        timer_title = tk.Label(self.parent.root,
-                               text= "Timer",
-                               font= ("TF2 Build", 25, "underline"),
-                               bg= "gray20",
-                               fg= "white")
+        timer_title = tk.Label(
+            self.parent.root,
+            text= "Timer",
+            font= ("TF2 Build", 25, "underline"),
+            bg= "gray20",
+            fg= "white"
+        )
+
         timer_title.place(x= 10, y= 275)
         TimerType(self)

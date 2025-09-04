@@ -10,14 +10,16 @@ class HelpMe:
         self.parent = parent
 
         # Just the button this time
-        self.help_me = tk.Button(self.parent.parent.parent.root,
-                                 text= " HELP ",
-                                 font= ("Consolas", 16),
-                                 bg= "yellow",
-                                 fg= "black",
-                                 activebackground= "cyan",
-                                 activeforeground= "white",
-                                 command= self.pop_it_up)
+        self.help_me = tk.Button(
+            self.parent.parent.parent.root,
+            text= " HELP ",
+            font= ("Consolas", 16),
+            bg= "yellow",
+            fg= "black",
+            activebackground= "cyan",
+            activeforeground= "white",
+            command= self.pop_it_up
+        )
 
     def button_placement(self):
         """Place the button if conditions are suitable"""
@@ -48,9 +50,12 @@ class HelpMe:
         result_label = tk.Label(win, text="Total: —", bg= "#c0c0c0")
         result_label.grid(row=4, column=0, columnspan=2)
 
-        i_got_you_label = tk.Label(win, text="Don't worry, I've automatically entered this number\n"
-                                             "you may close this window now.",
-                                   bg= "#c0c0c0", fg= "#c0c0c0")
+        i_got_you_label = tk.Label(
+        win, 
+        text="Don't worry, I've automatically entered this number\nyou may close this window now.",
+        bg= "#c0c0c0", fg= "#c0c0c0"
+        )
+
         i_got_you_label.grid(row=6, column=0, columnspan=2, padx= (10, 0))
 
         def vanish_label():
@@ -78,15 +83,15 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.insert(0, "120")
 
                 elif (minutes < 0 and seconds < 0):
-                    result_label.config(
-                        text= "Negative numbers are not tolerated."
-                    )
+                    result_label.config(text= "Negative numbers are not tolerated.")
                     vanish_label()
+
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, str(seconds))
                     
 
                 elif (minutes == 0 and seconds > 0):
+
                     result_label.config(
                         text= f"{seconds} seconds is {total} seconds\n"
                         "Wasn't that a little obvious?"
@@ -96,10 +101,9 @@ class HelpMe:
                     self.parent.timer_custom_entrybox.insert(0, str(seconds))
 
                 elif total < 3600:
+
                     result_label.config(text= f"Total: {total} seconds")
-                    i_got_you_label.config(
-                        foreground= "black"
-                    )
+                    i_got_you_label.config(foreground= "black")
                     self.parent.timer_custom_entrybox.delete(0, tk.END)
                     self.parent.timer_custom_entrybox.insert(0, str(total))
 

@@ -53,21 +53,12 @@ class GameSettings:
 
         self.title.place(x= 200, y= 10)
 
-        # "What settings?" button
-        self.title_button = tk.Button(
-            self.root,
-            text="What Settings?",
-            font= ("Arial", 20, "bold"),
-            fg= "#b0b0b0",
-            bg= "#997755",
-            activebackground= "#553311",
-            activeforeground= "#f0f0f0"
-        )
-
         self.add_hover(
             widget=self.title_button,
-            background=("#775533","#997755"),
-            foreground=("#d0d0d0","#b0b0b0")
+            hover_bg="#775533",
+            normal_bg="#997755",            
+            hover_fg="#d0d0d0",
+            normal_fg="#b0b0b0",
         )
 
         # Load the custom modules' objects
@@ -83,19 +74,19 @@ class GameSettings:
         for module in modules:
             module(self.root, self)
 
-    def add_hover(
-            self,
-            widget,
-            background: tuple[str, str]= (None, None),
-            foreground: tuple[str, str]= (None, None),
-            text: tuple[str, str]= (None, None)
-    ):
+    def add_hover(self, **items):
         """Add mouse-over effects to the widgets"""          
 
-        hover_bg, normal_bg = background
-        hover_fg, normal_fg = foreground
-        hover_text, normal_text = text
+        # Assign the variables
+        widget = items.get("widget", None)
+        hover_bg = items.get("hover_bg", None)
+        normal_bg = items.get("normal_bg", None)
+        hover_fg = items.get("hover_fg", None)
+        normal_fg = items.get("normal_fg", None)
+        hover_text = items.get("hover_text", None)
+        normal_text = items.get("normal_text", None)
 
+        # With mouse-over:
         def on_enter(_):
             """When pressed"""
             widget.config(
@@ -104,6 +95,7 @@ class GameSettings:
                 text=hover_text or widget["text"]
             )
 
+        # Without mouse-over:
         def on_leave(_):
             """When released"""
             widget.config(
@@ -112,6 +104,7 @@ class GameSettings:
                 text=normal_text or widget["text"]
             )
 
+        # Bind the functions here
         widget.bind("<Enter>", on_enter)
         widget.bind("<Leave>", on_leave)
 

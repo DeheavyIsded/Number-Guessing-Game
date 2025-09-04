@@ -19,43 +19,51 @@ class Display:
             "bg": "gray20",
             "fg": "white",
             "font": ("TF2 Build", 12)
-            }
+        }
 
         # Difficulty display
-        self.difficulty_display = tk.Label(self.root,
-                                           font= gui_features["font"],
-                                           bg= gui_features["bg"],
-                                           fg= gui_features["fg"])
+        self.difficulty_display = tk.Label(
+            self.root,
+            font= gui_features["font"],
+            bg= gui_features["bg"],
+            fg= gui_features["fg"]
+        )
 
         gui_components.append(self.difficulty_display)
 
         # Hint Level display
-        self.hint_level_display = tk.Label(self.root,
-                                           font= gui_features["font"],
-                                           bg= gui_features["bg"],
-                                           fg= gui_features["fg"])
+        self.hint_level_display = tk.Label(
+            self.root,
+            font= gui_features["font"],
+            bg= gui_features["bg"],
+            fg= gui_features["fg"]
+        )
 
         gui_components.append(self.hint_level_display)
 
         # Timer Style display
-        self.timer_style_display = tk.Label(self.root,
-                                           font= gui_features["font"],
-                                           bg= gui_features["bg"],
-                                           fg= gui_features["fg"])
+        self.timer_style_display = tk.Label(
+            self.root,
+            font= gui_features["font"],
+            bg= gui_features["bg"],
+            fg= gui_features["fg"]
+        )
 
         gui_components.append(self.timer_style_display)
 
         # Chosen Time display
-        self.chosen_time_display = tk.Label(self.root,
-                                           font= gui_features["font"],
-                                           bg= gui_features["bg"],
-                                           fg= gui_features["fg"])
+        self.chosen_time_display = tk.Label(
+            self.root,
+            font= gui_features["font"],
+            bg= gui_features["bg"],
+            fg= gui_features["fg"]
+        )
 
         component_coords: list[tuple[int, int]] = [
             (430, 320), # Coordinates of Difficulty display
             (430, 350), # Coordinates of Hint level display
             (430, 380)  # Coordinates of Timer Style display
-            ]
+        ]
 
         self.place_widgets(gui_components, component_coords)
 

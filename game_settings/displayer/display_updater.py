@@ -25,7 +25,7 @@ class Updater:
             2: "Temperature (Cold & Hot)",
             3: "Freemium Information",
             4: "Premium Information"
-            }
+        }
 
         hint_level = hint_level_translator[self.prp.hints_chosen_level] if \
                                      (self.prp.hints_chosen_level != 0) else "No Hints"

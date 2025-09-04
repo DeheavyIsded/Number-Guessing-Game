@@ -17,15 +17,23 @@ class StartGame:
         self.parent = parent
 
         # The button
-        self.start_button = tk.Button(self.parent.parent.root, text= "  START  ",
-                                      bg= "#0099ff", fg= "#d0d0d0",
-                                      activebackground= "#0066cc", activeforeground= "white",
-                                      command= self.start_game)
+        self.start_button = tk.Button(
+            master=self.parent.parent.root,
+            text= "  START  ",
+            bg= "#0099ff", fg= "#d0d0d0",
+            activebackground= "#0066cc", activeforeground= "white",
+            command= self.start_game
+        )
 
-        Gui.add_hover(widget= self.start_button,
-                      background= ("#0078d8", "#0099ff"),
-                      foreground= ("#e0e0e0", "#d0d0d0"),
-                      text= ("  STRUT  ", "  START  "))
+        Gui.add_hover(
+            widget= self.start_button,
+            hover_bg="#0078d8",
+            normal_bg="#0099ff",
+            hover_fg="#e0e0e0",
+            normal_fg="#d0d0d0",
+            normal_text="  START  ",
+            hover_text="  STRUT  "
+        )
 
         self.start_button.place(x= 450, y= 450)
 

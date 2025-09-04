@@ -7,7 +7,7 @@ import ctypes
 from .main_menu_gui import MainMenu
 
 class Start:
-    """I couldnt find a better game"""
+    """I couldnt find a better name"""
 
     def __init__(self):
 
@@ -30,6 +30,7 @@ class Start:
         self.main_menu_font = tkFont.Font(
             family= "TF2 Build",
             size= 37,
-            weight= "bold")
+            weight= "bold"
+        )
 
-        MainMenu(self.root, self)
+        MainMenu(self)

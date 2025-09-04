@@ -15,7 +15,7 @@ class Gui:
 
         # Main menu text
         self.main_menu_text = tk.Label(
-            self.root,
+            master=self.root,
             text="Number Guessing Game",
             font=self.parent.parent.main_menu_font,
             background=self.parent.parent.root_background,
@@ -23,10 +23,13 @@ class Gui:
         )
 
         self.add_hover(
-            self.main_menu_text,
-            background=("#224466",self.parent.parent.root_background),
-            foreground=("#aaaaff","#0000bb"),
-            text=(self.parent.hover_texts,"Number Guessing Game")
+            widget=self.main_menu_text,
+            hover_bg="#224466",
+            normal_bg=self.parent.parent.root_background,
+            hover_fg="#aaaaff",
+            normal_fg="#0000bb",
+            hover_text=self.parent.hover_texts,
+            normal_text="Number Guessing Game"
         )
 
         self.main_menu_text.place(x=100,y=50,height=100)
@@ -44,8 +47,9 @@ class Gui:
         )
 
         self.add_hover(
-            self.parent.start_button,
-            background=("#bbccdd","#ddeeff")
+            widget=self.parent.start_button,
+            hover_bg="#bbccdd",
+            normal_bg="#ddeeff"
         )
 
         self.parent.start_button.place(x=250,y=250,width=300,height=50)
@@ -63,8 +67,9 @@ class Gui:
         )
 
         self.add_hover(
-            self.exit_button,
-            background=("#bbccdd","#ddeeff")
+            widget=self.exit_button,
+            hover_bg="#bbccdd",
+            normal_bg="#ddeeff"
         )
 
         self.exit_button.place(x=260,y=310,width=280,height=50)
@@ -82,43 +87,20 @@ class Gui:
         )
 
         self.add_hover(
-            self.about_button,
-            background= ("#336633","#88ff88"),
-            foreground= ("white","black")
+            widget=self.about_button,
+            hover_bg="#336633",
+            normal_bg="#88ff88",
+            hover_fg="white",
+            normal_fg="black"
         )
 
         self.about_button.place(x=650,y=435,width=100,height=30)
 
-        # The statistics button
-        self.statistics_button = tk.Button(
-            self.root,
-            text="  STATISTICS  ",
-            font=("Arial", 10, "bold"),
-            command=self.parent.stats,
-            background="#dddd88",
-            foreground="black",
-            activebackground="#4a4a1e",
-            activeforeground="white"
-        )
-
-        self.add_hover(
-            self.statistics_button,
-            background= ("#888844","#dddd88"),
-            foreground= ("white","black")
-        )
-
-        self.statistics_button.place(x=50,y=435,width=100,height=30)
-
+        # Start the window
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
         self.root.mainloop()
 
-    def add_hover(
-            self=None,
-            widget: tk.Widget=object,
-            background: tuple[str, str]=(None, None),
-            foreground: tuple[str, str]=(None, None),
-            text: tuple[str, str]=(None, None)
-    ) -> None:
+    def add_hover(self=None,**items) -> None:
         """
         Add mouse-over effects to the widgets
         
@@ -131,16 +113,18 @@ class Gui:
             -foreground: tuple[str, str] -> foreground colors:
                 foreground= ("hover_fg", "normal_fg")
 
-
-        Optional Arg:
-
             -text: tuple[str, str] -> texts:
                 foreground= ("hover_text", "normal_text")
         """
 
-        hover_bg, normal_bg = background
-        hover_fg, normal_fg = foreground
-        hover_text, normal_text = text
+        # Assign the variables
+        widget = items.get("widget", None)
+        hover_bg = items.get("hover_bg", None)
+        normal_bg = items.get("normal_bg", None)
+        hover_fg = items.get("hover_fg", None)
+        normal_fg = items.get("normal_fg", None)
+        hover_text = items.get("hover_text", None)
+        normal_text = items.get("normal_text", None)
 
         def on_enter1(_):
             new_text: str= np.random.choice(

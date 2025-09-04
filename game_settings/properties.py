@@ -87,7 +87,7 @@ class Properties:
     @property
     def timer_custom_time(self) -> int:
         """Getter for Custom Time"""
-        return self.timer_custom_time_raw.get() # FIXME: _tkinter.TclError
+        return self.timer_custom_time_raw.get()
 
     # >>> Setters
     @difficulty.setter

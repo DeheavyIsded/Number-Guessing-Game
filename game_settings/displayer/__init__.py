@@ -10,10 +10,13 @@ class Showcase: # pylint: disable= too-few-public-methods
 
         self.parent = parent
 
-        title = tk.Label(self.parent.root,
-                         text= "Chosen Settings",
-                         font= ("TF2 Build", 25, "underline"),
-                         bg= "gray20", fg= "white")
+        title = tk.Label(
+            master=self.parent.root,
+            text="Chosen Settings",
+            font=("TF2 Build", 25, "underline"),
+            bg="gray20", fg="white"
+        )
+
         title.place(x= 400, y= 275)
 
         self.display = Display(self.parent.root)

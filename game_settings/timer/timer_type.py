@@ -79,17 +79,19 @@ class TimerType:
             self.timer_type_timer
         ]
 
-        item_coords: dict[tk.Widget: tuple[int, int]] = {
-                  self.timer_type_title: (10, 350),
+        item_coords: dict[tk.Widget, tuple[int, int]] = {
+            self.timer_type_title: (10, 350),
             self.timer_type_chronometer: (30, 375),
-                  self.timer_type_timer: (30, 400)}
+            self.timer_type_timer: (30, 400)
+        }
 
         self.parent.parent.prp.timer_style = "chronometer"
 
         # Is the Timer box checked?
-        if not self.parent.parent.prp.timer_enabled:
 
         # For no:
+        if not self.parent.parent.prp.timer_enabled:
+
             for menu_item in menu_items:
                 menu_item.place_forget()
 
