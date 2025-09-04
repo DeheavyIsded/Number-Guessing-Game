@@ -36,7 +36,7 @@ class Gui:
 
         # The start button
         self.parent.start_button = tk.Button(
-            self.root,
+            master=self.root,
             text="  PLAY  ",
             font=("Arial",20,"bold"),
             command=self.parent.start,
@@ -52,13 +52,33 @@ class Gui:
             normal_bg="#ddeeff"
         )
 
-        self.parent.start_button.place(x=100,y=250,width=100,height=25)
+        self.parent.start_button.place(x=200,y=125,width=200,height=50)
+
+        # The about button
+        self.about_button = tk.Button(
+            master=self.root,
+            text="  ABOUT  ",
+            font=("Arial",10,"bold"),
+            command=lambda: webbrowser.open("https://github.com/DeheavyIsded"),
+            background="#ddeeff",
+            foreground="black",
+            activebackground="#5d7185",
+            activeforeground="white"
+        )
+
+        self.add_hover(
+            widget=self.about_button,
+            hover_bg="#bbccdd",
+            normal_bg="#ddeeff"
+        )
+
+        self.about_button.place(x=220,y=195,width=160,height=30)
 
         # The exit button
         self.exit_button = tk.Button(
-            self.root,
+            master=self.root,
             text="  EXIT  ",
-            font=("Arial",20,"bold"),
+            font=("Arial",10,"bold"),
             command=self.on_exit,
             background="#ddeeff",
             foreground="black",
@@ -72,29 +92,7 @@ class Gui:
             normal_bg="#ddeeff"
         )
 
-        self.exit_button.place(x=140,y=350,width=60,height=25)
-
-        # The about button
-        self.about_button = tk.Button(
-            self.root,
-            text="  ABOUT  ",
-            font=("Arial",10,"bold"),
-            command=lambda: webbrowser.open("https://github.com/DeheavyIsded"),
-            background="#88ff88",
-            foreground="black",
-            activebackground="#2f4d2f",
-            activeforeground="white"
-        )
-
-        self.add_hover(
-            widget=self.about_button,
-            hover_bg="#336633",
-            normal_bg="#88ff88",
-            hover_fg="white",
-            normal_fg="black"
-        )
-
-        self.about_button.place(x=120,y=300,width=80,height=30)
+        self.exit_button.place(x=240,y=245,width=120,height=20)
 
         # Start the window
         self.root.protocol("WM_DELETE_WINDOW", self.on_exit)
